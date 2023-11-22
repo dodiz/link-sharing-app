@@ -45,7 +45,7 @@ const config: Config = {
       },
       borderRadius: {
         sm: "0.8rem",
-        base: "1.2rem",
+        md: "1.2rem",
       },
       boxShadow: {
         base: "0 0 32px 0 rgba(0, 0, 0, 0.10)",
