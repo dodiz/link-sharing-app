@@ -1,6 +1,9 @@
+"use client";
+
 import { Button } from "@/ui/Button";
 import { Typography } from "@/ui/Typography";
 import { Logo } from "@/ui/Logo";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
   return (
@@ -15,7 +18,11 @@ export default function Page() {
         </div>
         <div className="flex flex-col gap-4">
           <Button variant="primary" label="Google" />
-          <Button variant="primary" label="Github" />
+          <Button
+            variant="primary"
+            onClick={() => signIn("github")}
+            label="Github"
+          />
         </div>
       </div>
     </div>
