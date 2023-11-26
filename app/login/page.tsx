@@ -4,7 +4,7 @@ import { LoginProviders } from "./LoginProviders";
 
 export default function Page() {
   return (
-    <div className="h-screen bg-secondary-200 flex flex-col items-center justify-center gap-13">
+    <div className="h-screen flex flex-col items-center justify-center gap-13">
       <Logo />
       <div className="p-10 w-[48rem] rounded-md flex flex-col gap-10 bg-secondary-100">
         <div className="flex flex-col gap-2">
