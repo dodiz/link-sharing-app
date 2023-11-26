@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Link from "next/link";
 import { Button } from "@/ui/Button";
 import { Logo } from "@/ui/Logo";
 import { NavLink } from "@/ui/NavLink";
@@ -19,7 +20,7 @@ export const Header: FC = () => {
           Profile Details
         </NavLink>
       </div>
-      <Button variant="secondary" label="Preview" />
+      <Button as={Link} href="/preview" variant="secondary" label="Preview" />
     </header>
   );
 };
