@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Instrument_Sans } from "next/font/google";
+import { cn } from "@/utils/cn";
 import { SessionProvider } from "./SessionProvider";
 import "./globals.css";
 
@@ -20,7 +21,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className={instrumentSans.className}>
+      <body className={cn(instrumentSans.className, "bg-secondary-200")}>
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

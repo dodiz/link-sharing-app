@@ -1,5 +1,4 @@
 import { ComponentProps, FC } from "react";
-import { Typography } from "./Typography";
 
 export type ButtonProps = ComponentProps<"button"> & {
   variant?: "primary" | "secondary";

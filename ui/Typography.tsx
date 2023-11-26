@@ -1,18 +1,26 @@
+import { cn } from "@/utils/cn";
 import { FC, PropsWithChildren } from "react";
 
-export type TypographyProps = PropsWithChildren & {
+type TypographyProps = PropsWithChildren & {
   variant: "heading-m" | "heading-s" | "body-m" | "body-s";
+  className?: string;
 };
 
-export const Typography: FC<TypographyProps> = ({ variant, children }) => {
+export const Typography: FC<TypographyProps> = ({
+  variant,
+  children,
+  className,
+}) => {
   switch (variant) {
     case "heading-m":
-      return <h2 className="text-xl font-bold">{children}</h2>;
+      return <h2 className={cn("text-xl font-bold", className)}>{children}</h2>;
     case "heading-s":
-      return <h3 className="text-base font-semibold">{children}</h3>;
+      return (
+        <h3 className={cn("text-base font-semibold", className)}>{children}</h3>
+      );
     case "body-m":
-      return <p className="text-base">{children}</p>;
+      return <p className={cn("text-base", className)}>{children}</p>;
     case "body-s":
-      return <p className="text-xs">{children}</p>;
+      return <p className={cn("text-xs", className)}>{children}</p>;
   }
 };
