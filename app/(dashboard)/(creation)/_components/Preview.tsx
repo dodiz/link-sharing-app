@@ -2,10 +2,10 @@ import { FC } from "react";
 
 export const Preview: FC = () => {
   return (
-    <div>
+    <div className="w-[56rem] bg-secondary-100 py-6 box-border flex items-center justify-center rounded-md">
       <svg
-        width="308"
-        height="632"
+        width="300"
+        height="630"
         viewBox="0 0 308 632"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
