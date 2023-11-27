@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { signIn } from "next-auth/react";
-import { GithubIcon } from "@/ui/icons/GithubIcon";
+import { GithubIcon } from "@/assets/GithubIcon";
 
 export const LoginProviders: FC = () => {
   return (

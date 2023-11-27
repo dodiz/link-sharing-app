@@ -1,8 +1,8 @@
 "use client";
 
 import { FC, ReactNode, useState } from "react";
-import { LinkIcon } from "./icons/LinkIcon";
-import { ArrowDownIcon } from "./icons/ArrowDownIcon";
+import { LinkIcon } from "@/assets/LinkIcon";
+import { ArrowDownIcon } from "@/assets/ArrowDownIcon";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 type Option = {
