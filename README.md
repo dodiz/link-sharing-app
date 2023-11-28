@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Mentor - Link-sharing app solution
 
-## Getting Started
+This is a solution to the [Link-sharing app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/linksharing-app-Fbt7yweGsT). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-First, run the development server:
+## Table of contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [The challenge](#the-challenge)
+- [Preview](#preview)
+- [Links](#links)
+- [How to run locally](#how-to-run-locally)
+- [Built with](#built-with)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Deployment](#deployment)
+- [Author](#author)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### The challenge
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Users should login to the app
+- Create, read, update, delete links and see their previews with form validation
+- Save their details to a database
+- Drag and drop links to reorder them
+- Add profile details, profile picture upload
+- Preview their devlinks profile and copy the link to their clipboard to share
+- Full responsiveness
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Preview
 
-## Learn More
+![](./preview.jpg)
 
-To learn more about Next.js, take a look at the following resources:
+### Links
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Solution URL (TBD): [Link Sharing App](https://vercel.com)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### How to run locally
 
-## Deploy on Vercel
+- Download [Node.js](https://nodejs.org/en/download/)
+- Download [pnpm](https://pnpm.io/installation)
+- Clone the repo
+- For a local database, download `Docker` and run `docker-compose up -d` to start a postgres container
+- Check `.env.example` to add the required environment variables to a `.env` file
+- Run `pnpm install` to install dependencies
+- Run `pnpm db:push` to push your schema to the database
+  - You might get an env variable error, add NODE_ENV=development to the .env file
+- Run `pnpm dev` to start the development server
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Built with
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Frontend
+
+- [React](https://reactjs.org/) - JS library
+- [Next.js](https://nextjs.org/) - React framework
+- [Typescript](https://www.typescriptlang.org/) - For type checking
+- [Tailwind] (https://tailwindcss.com/) - For page styles
+- [React Query](https://react-query.tanstack.com/) - implemented in tRPC
+- [Formik] (https://formik.org/) - For form management
+- [Zod] (https://zod.dev/) - For validation
+
+#### Backend
+
+- [TRPC] (https://trpc.io/) - For server-client communication
+- [Drizzle] (https://orm.drizzle.team/) - DB ORM, postgres, supabase
+- [NextAuth] (https://next-auth.js.org/) - For authentication
+
+#### Deployment
+
+- [Vercel] (https://vercel.com/) - For deployment
+- [PlanetScale] (https://planetscale.com/) - For database hosting
+
+### Author
+
+- LinkedIn - [Donato Di Zenzo](https://www.linkedin.com/in/donato-di-zenzo/)
+- Frontend Mentor - [@dodiz](https://www.frontendmentor.io/profile/dodiz)
