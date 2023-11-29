@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
+import { cookies } from "next/headers";
 import { Instrument_Sans } from "next/font/google";
+import { SessionProvider } from "@/context/SessionProvider";
+import { TRPCReactProvider } from "@/context/TRPCProvider";
 import { cn } from "@/utils/cn";
-import { SessionProvider } from "./SessionProvider";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({ subsets: ["latin"] });
@@ -22,7 +24,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn(instrumentSans.className, "bg-secondary-200")}>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <TRPCReactProvider cookies={cookies().toString()}>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

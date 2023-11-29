@@ -22,11 +22,9 @@
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
     "incremental": true,
-
-    /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -36,7 +34,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "postcss.config.mjs"
   ],
   "exclude": ["node_modules"]
 }
