@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import { LinkIcon } from "@/assets/LinkIcon";
+import { DragIcon } from "@/assets/DragIcon";
 import { socials } from "@/data/socials";
 import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
@@ -15,6 +16,7 @@ export default function Page() {
     label: string;
     value: string;
   } | null>(null);
+
   return (
     <>
       <Typography variant="heading-m">Customize your links</Typography>
@@ -27,16 +29,7 @@ export default function Page() {
         <div className="rounded-md p-5 bg-secondary-200 flex flex-col gap-3">
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
-              <svg
-                width="12"
-                height="6"
-                viewBox="0 0 12 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="12" height="1" fill="#737373" />
-                <rect y="5" width="12" height="1" fill="#737373" />
-              </svg>
+              <DragIcon />
               <p className="font-bold text-secondary-400">Link #1</p>
             </div>
             <p className="text-secondary-400 cursor-pointer hover:text-error">
