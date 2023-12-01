@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { Typography } from "@/ui/Typography";
 import { LinkIcon } from "@/assets/LinkIcon";
 import { ArrowDownIcon } from "@/assets/ArrowDownIcon";
@@ -35,11 +35,17 @@ export const Select: FC<SelectProps> = ({
     setShow(false);
   };
 
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current?.addEventListener("focus", () => setShow(true));
+  }, [ref]);
+
   return (
     <div
-      className="relative flex flex-col gap-1"
-      onFocus={() => setShow(true)}
+      className="outline-none relative flex flex-col gap-1"
+      onClick={() => setShow((p) => !p)}
       onBlur={() => setShow(false)}
+      tabIndex={0}
       ref={ref}
     >
       {label && <Typography variant="body-s">{label}</Typography>}
@@ -56,7 +62,7 @@ export const Select: FC<SelectProps> = ({
         <ArrowDownIcon className={`transition-all ${show && "rotate-180"}`} />
       </div>
       <div
-        className={`bg-secondary-100 transition-all rounded-sm border-1 px-4 border-secondary-300 absolute top-19 left-0 w-full shadow-base ${
+        className={`max-h-96 overflow-y-auto bg-secondary-100 transition-all rounded-sm border-1 px-4 border-secondary-300 absolute top-19 left-0 w-full shadow-base ${
           show
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-5 pointer-events-none"
