@@ -1,86 +1,77 @@
 "use client";
 
-import { FC, ReactNode, useEffect, useState } from "react";
-import { Typography } from "@/ui/Typography";
-import { LinkIcon } from "@/assets/LinkIcon";
+import { ReactNode, FC } from "react";
+import {
+  Group,
+  Value,
+  Item,
+  Root,
+  Trigger,
+  Icon,
+  Content,
+  Portal,
+  ScrollUpButton,
+  ScrollDownButton,
+  Viewport,
+} from "@radix-ui/react-select";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { ArrowDownIcon } from "@/assets/ArrowDownIcon";
-import { useClickOutside } from "@/hooks/useClickOutside";
-
-type Option = {
-  label: string;
-  value: string;
-  Icon: ReactNode;
-};
+import { Typography } from "./Typography";
 
 type SelectProps = {
+  options: {
+    value: string;
+    label: ReactNode;
+  }[];
   label: string;
-  selected: Option | null;
-  onChange: (value: Option) => void;
-  options: Option[];
-  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: ReactNode;
 };
-
 export const Select: FC<SelectProps> = ({
   options,
-  label,
-  selected,
-  onChange,
   placeholder,
+  value,
+  onChange,
+  label,
 }) => {
-  const [show, setShow] = useState(false);
-  const ref = useClickOutside(() => setShow(false));
-
-  const handleChoose = (item: Option) => {
-    onChange(item);
-    setShow(false);
-  };
-
-  useEffect(() => {
-    if (!ref.current) return;
-    ref.current?.addEventListener("focus", () => setShow(true));
-  }, [ref]);
-
   return (
-    <div
-      className="outline-none relative flex flex-col gap-1"
-      onClick={() => setShow((p) => !p)}
-      onBlur={() => setShow(false)}
-      tabIndex={0}
-      ref={ref}
-    >
-      {label && <Typography variant="body-s">{label}</Typography>}
-      <div
-        tabIndex={0}
-        className={`transition-all border-1 cursor-pointer flex items-center gap-3 py-3 px-4 font-semibold rounded-sm bg-white ${
-          show ? "border-primary-300 shadow-accent" : "border-secondary-300"
-        }`}
-      >
-        {selected === null ? <LinkIcon fill="currentColor" /> : selected.Icon}
-        <div className="flex-1">
-          {selected === null ? placeholder : selected.label}
-        </div>
-        <ArrowDownIcon className={`transition-all ${show && "rotate-180"}`} />
-      </div>
-      <div
-        className={`max-h-96 overflow-y-auto bg-secondary-100 transition-all rounded-sm border-1 px-4 border-secondary-300 absolute top-19 left-0 w-full shadow-base ${
-          show
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-5 pointer-events-none"
-        }`}
-      >
-        {options.map((item) => (
-          <div
-            tabIndex={0}
-            onClick={() => handleChoose(item)}
-            key={item.value}
-            onKeyDown={(e) => e.key === "Enter" && handleChoose(item)}
-            className="cursor-pointer flex items-center gap-3 py-3 border-secondary-300 hover:text-primary-300 border-b-1 last-of-type:border-b-0"
-          >
-            {item.Icon}
-            {item.label}
-          </div>
-        ))}
-      </div>
-    </div>
+    <Root value={value} onValueChange={onChange}>
+      <Typography variant="body-s">{label}</Typography>
+      <Trigger className="flex w-full items-center justify-between rounded-sm border border-slate-200 bg-white px-4 py-3 ring-offset-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 data-[state=open]:border-primary-300 data-[state=open]:shadow-accent font-semibold group">
+        <Value placeholder={placeholder}>
+          {options.find((option) => option.value === value)?.label}
+        </Value>
+        <Icon>
+          <ArrowDownIcon className="group-data-[state=open]:rotate-180 transition-all" />
+        </Icon>
+      </Trigger>
+      <Portal>
+        <Content
+          className="relative z-50 px-4 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white text-slate-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
+          position="popper"
+        >
+          <ScrollUpButton className="flex cursor-default items-center justify-center py-1">
+            <ChevronUp className="h-4 w-4" />
+          </ScrollUpButton>
+          <Viewport className="p-1 h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]">
+            <Group>
+              {options.map((option) => (
+                <Item
+                  key={option.value}
+                  className="relative flex gap-3 w-full cursor-pointer select-none items-center py-3 outline-none border-secondary-300 focus:text-primary-300 focus:bg-secondary-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50  border-b last:border-b-0"
+                  value={option.value}
+                >
+                  {option.label}
+                </Item>
+              ))}
+            </Group>
+          </Viewport>
+          <ScrollDownButton className="flex cursor-default items-center justify-center py-1">
+            <ChevronDown className="h-4 w-4" />
+          </ScrollDownButton>
+        </Content>
+      </Portal>
+    </Root>
   );
 };
