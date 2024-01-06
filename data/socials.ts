@@ -1,101 +1,107 @@
-import { ComponentProps, FC } from "react";
-import { CodeWarsIcon } from "@/assets/CodeWarsIcon";
-import { DevToIcon } from "@/assets/DevtoIcon";
-import { FacebookIcon } from "@/assets/FacebookIcon";
-import { FreeCodeCampIcon } from "@/assets/FreeCodeCampIcon";
-import { FrontendMentorIcon } from "@/assets/FrontendMentorIcon";
-import { GithubIcon } from "@/assets/GithubIcon";
-import { GitlabIcon } from "@/assets/GitlabIcon";
-import { HashnodeIcon } from "@/assets/HashnodeIcon";
-import { LinkedinIcon } from "@/assets/LinkedinIcon";
-import { StackOverflowIcon } from "@/assets/StackOverflowIcon";
-import { TwitchIcon } from "@/assets/TwitchIcon";
-import { TwitterIcon } from "@/assets/TwitterIcon";
-import { YoutubeIcon } from "@/assets/YoutubeIcon";
-
 export const socials: {
-  Icon: FC<ComponentProps<"svg">>;
+  iconPath: string;
+  iconGrayPath: string;
   label: string;
   id: string;
   bgColor: string;
   textColor?: string;
 }[] = [
   {
-    Icon: GithubIcon,
     id: "github",
+    iconPath: "/socials/github.svg",
+    iconGrayPath: "/socials/github_gray.svg",
     label: "Github",
     bgColor: "#1A1A1A",
   },
   {
-    Icon: FrontendMentorIcon,
     id: "frontend_mentor",
+    iconPath: "/socials/frontendmentor.svg",
+    iconGrayPath: "/socials/frontendmentor_gray.svg",
     label: "Frontend Mentor",
     bgColor: "#ffffff",
     textColor: "#333333",
   },
   {
-    Icon: TwitterIcon,
     id: "twitter",
+    iconPath: "/socials/twitter.svg",
+    iconGrayPath: "/socials/twitter_gray.svg",
     label: "Twitter",
     bgColor: "#43B7E9",
   },
   {
-    Icon: LinkedinIcon,
     id: "linkedin",
+    iconPath: "/socials/linkedin.svg",
+    iconGrayPath: "/socials/linkedin_gray.svg",
     label: "Linkedin",
     bgColor: "#2D68FF",
   },
   {
-    Icon: YoutubeIcon,
     id: "youtube",
+    iconPath: "/socials/youtube.svg",
+    iconGrayPath: "/socials/youtube_gray.svg",
     label: "Youtube",
     bgColor: "#EE3939",
   },
   {
-    Icon: FacebookIcon,
     id: "facebook",
+    iconPath: "/socials/facebook.svg",
+    iconGrayPath: "/socials/facebook_gray.svg",
     label: "Facebook",
     bgColor: "#2442AC",
   },
   {
-    Icon: TwitchIcon,
     id: "twitch",
+    iconPath: "/socials/twitch.svg",
+    iconGrayPath: "/socials/twitch_gray.svg",
     label: "Twitch",
     bgColor: "#EE3FC8",
   },
   {
-    Icon: DevToIcon,
     id: "devto",
+    iconPath: "/socials/devto.svg",
+    iconGrayPath: "/socials/devto_gray.svg",
     label: "Dev.to",
     bgColor: "#333333",
   },
   {
-    Icon: CodeWarsIcon,
     id: "codewars",
+    iconPath: "/socials/codewars.svg",
+    iconGrayPath: "/socials/codewars_gray.svg",
     label: "CodeWars",
     bgColor: "#8A1A50",
   },
   {
-    Icon: FreeCodeCampIcon,
     id: "freecodecamp",
+    iconPath: "/socials/freecodecamp.svg",
+    iconGrayPath: "/socials/freecodecamp_gray.svg",
     label: "freeCodeCamp",
     bgColor: "#302267",
   },
   {
-    Icon: GitlabIcon,
     id: "gitlab",
+    iconPath: "/socials/gitlab.svg",
+    iconGrayPath: "/socials/gitlab_gray.svg",
     label: "Gitlab",
     bgColor: "#EB4925",
   },
   {
-    Icon: HashnodeIcon,
     id: "hashnode",
+    iconPath: "/socials/hashnode.svg",
+    iconGrayPath: "/socials/hashnode_gray.svg",
     label: "Hashnode",
     bgColor: "#0330D1",
   },
   {
-    Icon: StackOverflowIcon,
+    id: "codepen",
+    iconPath: "/socials/codepen.svg",
+    iconGrayPath: "/socials/codepen_gray.svg",
+    label: "Codepen",
+    bgColor: "red",
+  },
+  {
     id: "stackoverflow",
+    iconPath: "/socials/stackoverflow.svg",
+    iconGrayPath: "/socials/stackoverflow_gray.svg",
     label: "Stack Overflow",
     bgColor: "#EC7100",
   },
