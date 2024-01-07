@@ -12,9 +12,9 @@ export const Preview: FC = () => {
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
-      ...socials.find((s) => s.id === social.id)!,
+      ...socials.find((s) => s.providerId === social.providerId)!,
     }))
-    .filter((social) => !!social.id);
+    .filter((social) => !!social.providerId);
   const skeletons = Array.from(
     { length: 5 - socialsWithIcons.length },
     (_, i) => i
@@ -22,27 +22,17 @@ export const Preview: FC = () => {
 
   return (
     <div className="w-[56rem] bg-secondary-100 py-6 flex justify-center rounded-md">
-      <div className="w-[30rem] h-[63rem] relative p-5">
+      <div className="w-[30rem] h-[63rem] relative py-[1.8rem] px-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 308 632"
-          fill="none"
           stroke="#737373"
           className="absolute w-full h-full top-0 left-0 pointer-events-none"
           strokeLinejoin="bevel"
+          fill="white"
         >
-          <path
-            d="M 12 55.5 C 12 30.9233 31.9233 11 56.5 11 H 80.5 C 86.8513 11 92 16.1487 92 22.5 C 92 30.5081 98.4919 37 106.5 37 H 201.5 C 209.508 37 216 30.5081 216 22.5 C 216 16.1487 221.149 11 227.5 11 H 251.5 C 276.077 11 296 30.9233 296 55.5 V 576.5 C 296 601.077 276.077 621 251.5 621 H 56.5 C 31.9233 621 12 601.077 12 576.5 V 55 H 1 V 577 C 1 607 25 631 56 631 H 253 C 283 631 307 607 307 576 V 57 C 305 26 283 1 251 1 H 57 C 25 1 1 25 1 55"
-            fill="white"
-          />
-          <rect
-            x="1.5"
-            y="54"
-            width="10"
-            height="2"
-            fill="white"
-            strokeWidth={0}
-          />
+          <path d="M 12 55.5 C 12 30.9233 31.9233 11 56.5 11 H 80.5 C 86.8513 11 92 16.1487 92 22.5 C 92 30.5081 98.4919 37 106.5 37 H 201.5 C 209.508 37 216 30.5081 216 22.5 C 216 16.1487 221.149 11 227.5 11 H 251.5 C 276.077 11 296 30.9233 296 55.5 V 576.5 C 296 601.077 276.077 621 251.5 621 H 56.5 C 31.9233 621 12 601.077 12 576.5 V 55 H 1 V 577 C 1 607 25 631 56 631 H 253 C 283 631 307 607 307 576 V 57 C 305 26 283 1 251 1 H 57 C 25 1 1 25 1 55" />
+          <rect x="1.5" y="54" width="10" height="2" strokeWidth={0} />
         </svg>
         <div className="flex flex-col gap-5 w-full h-full overflow-auto">
           <div className="flex flex-col w-full items-center gap-6 mt-13">

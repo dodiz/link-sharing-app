@@ -1,13 +1,12 @@
 import { z } from "zod";
-import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { createTRPCRouter, publicProcedure } from "./init";
 
 let socials: {
-  id: string;
+  providerId: string;
   url: string;
 }[] = [
   {
-    id: "twitter",
+    providerId: "twitter",
     url: "https://twitter.com/dodiz",
   },
 ];
@@ -22,7 +21,7 @@ export const appRouter = createTRPCRouter({
         z.array(
           z.object({
             url: z.string().url(),
-            id: z.string(),
+            providerId: z.string(),
             action: z.enum(["add", "remove"]),
           })
         )
@@ -34,12 +33,9 @@ export const appRouter = createTRPCRouter({
         );
         socials.push(...newSocials);
         socials = socials.filter(
-          (social) => !removedSocials.find((s) => s.id === social.id)
+          (social) =>
+            !removedSocials.find((s) => s.providerId === social.providerId)
         );
       }),
   }),
 });
-
-export type AppRouter = typeof appRouter;
-export type RouterInputs = inferRouterInputs<AppRouter>;
-export type RouterOutputs = inferRouterOutputs<AppRouter>;

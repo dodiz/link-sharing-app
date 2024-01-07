@@ -5,23 +5,25 @@ import Image from "next/image";
 import { DragIcon } from "@/assets/DragIcon";
 import { LinkIcon } from "@/assets/LinkIcon";
 import { socials } from "@/data/socials";
+import { useSocials } from "@/hooks/useSocials";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
 
 type SocialFormProps = {
+  id: string;
   initialUrl?: string;
   initialPlatformId?: string;
-  onUpdate: (data: { id?: string; url?: string }) => void;
-  onRemove: () => void;
 };
 export const SocialForm: FC<SocialFormProps> = ({
+  id,
   initialUrl = "",
   initialPlatformId = "",
-  onUpdate,
-  onRemove,
 }) => {
+  const { update, remove } = useSocials();
   const [url, setUrl] = useState(initialUrl);
   const [platformId, setPlatformId] = useState(initialPlatformId);
+
+  console.log(initialPlatformId);
 
   const options = useMemo(
     () =>
@@ -32,7 +34,7 @@ export const SocialForm: FC<SocialFormProps> = ({
             {s.label}
           </div>
         ),
-        value: s.id,
+        value: s.providerId,
       })),
     []
   );
@@ -46,7 +48,7 @@ export const SocialForm: FC<SocialFormProps> = ({
         </div>
         <p
           className="text-secondary-400 cursor-pointer hover:text-error"
-          onClick={onRemove}
+          onClick={() => remove(id)}
         >
           Remove
         </p>
@@ -55,7 +57,7 @@ export const SocialForm: FC<SocialFormProps> = ({
         label="Platform"
         onChange={(value) => {
           setPlatformId(value);
-          onUpdate({ id: value });
+          update(id, { providerId: value });
         }}
         options={options}
         value={platformId}
@@ -69,7 +71,7 @@ export const SocialForm: FC<SocialFormProps> = ({
       <Input
         label="Link"
         onChange={({ target }) => setUrl(target.value)}
-        onBlur={() => onUpdate({ url })}
+        onBlur={() => update(id, { url })}
         value={url}
         Icon={LinkIcon}
         placeholder="e.g. https://www.github.com/johnappleseed"
