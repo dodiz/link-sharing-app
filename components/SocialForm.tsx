@@ -8,22 +8,22 @@ import { socials } from "@/data/socials";
 import { useSocials } from "@/hooks/useSocials";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
+import { cn } from "@/utils/cn";
 
 type SocialFormProps = {
   id: string;
   initialUrl?: string;
-  initialPlatformId?: string;
+  initialProviderId?: string;
 };
 export const SocialForm: FC<SocialFormProps> = ({
   id,
   initialUrl = "",
-  initialPlatformId = "",
+  initialProviderId = "",
 }) => {
-  const { update, remove } = useSocials();
+  const { update, remove, swap } = useSocials();
   const [url, setUrl] = useState(initialUrl);
-  const [platformId, setPlatformId] = useState(initialPlatformId);
-
-  console.log(initialPlatformId);
+  const [platformId, setPlatformId] = useState(initialProviderId);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const options = useMemo(
     () =>
@@ -40,7 +40,33 @@ export const SocialForm: FC<SocialFormProps> = ({
   );
 
   return (
-    <div className="rounded-md p-5 bg-secondary-200 flex flex-col gap-3">
+    <div
+      className={cn(
+        "rounded-md p-5 bg-secondary-200 flex flex-col gap-3",
+        isDragOver &&
+          "border-b-2 border-primary-300 shadow-accent transition-all"
+      )}
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.setData("socialId", id);
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        const socialId = e.dataTransfer.getData("socialId");
+        console.log(socialId);
+        if (socialId !== id) setIsDragOver(true);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        const socialId = e.dataTransfer.getData("socialId");
+        swap(socialId, id);
+      }}
+    >
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <DragIcon />

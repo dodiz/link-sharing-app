@@ -8,7 +8,7 @@ import { useSocials } from "@/hooks/useSocials";
 import { Typography } from "@/ui/Typography";
 
 export const Preview: FC = () => {
-  const { userSocials } = useSocials();
+  const { userSocials, swap } = useSocials();
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
@@ -45,15 +45,32 @@ export const Preview: FC = () => {
           <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">
             {socialsWithIcons
               .filter((social) => !!social.id)
-              .map((social, i) => (
+              .map((social) => (
                 <div
                   className="flex gap-2 items-center rounded-sm p-4 cursor-pointer"
-                  key={social.id + i}
+                  key={social.id}
                   style={{
                     backgroundColor: social.bgColor,
                     color: social.textColor,
                     border:
                       social.borderColor && "1px solid " + social.borderColor,
+                  }}
+                  draggable
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData("socialId", social.id);
+                  }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    const socialId = e.dataTransfer.getData("socialId");
+                    console.log(socialId);
+                  }}
+                  onDragLeave={(e) => {
+                    e.preventDefault();
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const socialId = e.dataTransfer.getData("socialId");
+                    swap(socialId, social.id);
                   }}
                 >
                   <Image

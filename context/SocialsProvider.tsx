@@ -19,6 +19,7 @@ export const SocialsContext = createContext({
   availableSocials: [] as typeof socials,
   add: () => {},
   remove: (id: string) => {},
+  swap: (firstId: string, secondId: string) => {},
   update: (
     id: string,
     {
@@ -76,6 +77,19 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
     []
   );
 
+  const swap = useCallback(
+    (firstId: string, secondId: string) => {
+      const firstIndex = userSocials.findIndex((s) => s.id === firstId);
+      const secondIndex = userSocials.findIndex((s) => s.id === secondId);
+      if (firstIndex === -1 || secondIndex === -1) return;
+      const newSocials = [...userSocials];
+      newSocials[firstIndex] = userSocials[secondIndex]!;
+      newSocials[secondIndex] = userSocials[firstIndex]!;
+      setUserSocials(newSocials);
+    },
+    [userSocials]
+  );
+
   const update = useCallback(
     (
       id: string,
@@ -114,6 +128,7 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
         add,
         remove,
         update,
+        swap,
         availableSocials,
       }}
     >
