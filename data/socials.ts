@@ -4,7 +4,9 @@ export const socials: {
   label: string;
   id: string;
   bgColor: string;
-  textColor?: string;
+  textColor: string;
+  borderColor?: string;
+  arrowColor: string;
 }[] = [
   {
     id: "github",
@@ -12,6 +14,8 @@ export const socials: {
     iconGrayPath: "/socials/github_gray.svg",
     label: "Github",
     bgColor: "#1A1A1A",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "frontend_mentor",
@@ -20,6 +24,8 @@ export const socials: {
     label: "Frontend Mentor",
     bgColor: "#ffffff",
     textColor: "#333333",
+    borderColor: "#D9D9D9",
+    arrowColor: "#737373",
   },
   {
     id: "twitter",
@@ -27,6 +33,8 @@ export const socials: {
     iconGrayPath: "/socials/twitter_gray.svg",
     label: "Twitter",
     bgColor: "#43B7E9",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "linkedin",
@@ -34,6 +42,8 @@ export const socials: {
     iconGrayPath: "/socials/linkedin_gray.svg",
     label: "Linkedin",
     bgColor: "#2D68FF",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "youtube",
@@ -41,6 +51,8 @@ export const socials: {
     iconGrayPath: "/socials/youtube_gray.svg",
     label: "Youtube",
     bgColor: "#EE3939",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "facebook",
@@ -48,6 +60,8 @@ export const socials: {
     iconGrayPath: "/socials/facebook_gray.svg",
     label: "Facebook",
     bgColor: "#2442AC",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "twitch",
@@ -55,6 +69,8 @@ export const socials: {
     iconGrayPath: "/socials/twitch_gray.svg",
     label: "Twitch",
     bgColor: "#EE3FC8",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "devto",
@@ -62,6 +78,8 @@ export const socials: {
     iconGrayPath: "/socials/devto_gray.svg",
     label: "Dev.to",
     bgColor: "#333333",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "codewars",
@@ -69,6 +87,8 @@ export const socials: {
     iconGrayPath: "/socials/codewars_gray.svg",
     label: "CodeWars",
     bgColor: "#8A1A50",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "freecodecamp",
@@ -76,6 +96,8 @@ export const socials: {
     iconGrayPath: "/socials/freecodecamp_gray.svg",
     label: "freeCodeCamp",
     bgColor: "#302267",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "gitlab",
@@ -83,6 +105,8 @@ export const socials: {
     iconGrayPath: "/socials/gitlab_gray.svg",
     label: "Gitlab",
     bgColor: "#EB4925",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "hashnode",
@@ -90,6 +114,8 @@ export const socials: {
     iconGrayPath: "/socials/hashnode_gray.svg",
     label: "Hashnode",
     bgColor: "#0330D1",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "codepen",
@@ -97,6 +123,8 @@ export const socials: {
     iconGrayPath: "/socials/codepen_gray.svg",
     label: "Codepen",
     bgColor: "red",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
   {
     id: "stackoverflow",
@@ -104,5 +132,7 @@ export const socials: {
     iconGrayPath: "/socials/stackoverflow_gray.svg",
     label: "Stack Overflow",
     bgColor: "#EC7100",
+    textColor: "#ffffff",
+    arrowColor: "#ffffff",
   },
 ];

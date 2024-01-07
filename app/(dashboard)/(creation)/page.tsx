@@ -1,5 +1,5 @@
 import { Typography } from "@/ui/Typography";
-import { Customize } from "./_components/Customize";
+import { Customize } from "../../components/Customize";
 
 export default function Page() {
   return (

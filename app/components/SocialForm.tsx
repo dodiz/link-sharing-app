@@ -5,23 +5,24 @@ import Image from "next/image";
 import { DragIcon } from "@/assets/DragIcon";
 import { LinkIcon } from "@/assets/LinkIcon";
 import { socials } from "@/data/socials";
-import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
-import { api } from "@/utils/api";
 
 type SocialFormProps = {
   initialUrl?: string;
   initialPlatformId?: string;
+  onUpdate: (data: { id?: string; url?: string }) => void;
+  onRemove: () => void;
 };
 export const SocialForm: FC<SocialFormProps> = ({
   initialUrl = "",
   initialPlatformId = "",
+  onUpdate,
+  onRemove,
 }) => {
-  const { mutate } = api.socials.update.useMutation({});
-
   const [url, setUrl] = useState(initialUrl);
   const [platformId, setPlatformId] = useState(initialPlatformId);
+
   const options = useMemo(
     () =>
       socials.map((s) => ({
@@ -35,6 +36,7 @@ export const SocialForm: FC<SocialFormProps> = ({
       })),
     []
   );
+
   return (
     <div className="rounded-md p-5 bg-secondary-200 flex flex-col gap-3">
       <div className="flex justify-between">
@@ -42,13 +44,20 @@ export const SocialForm: FC<SocialFormProps> = ({
           <DragIcon />
           <p className="font-bold text-secondary-400">Link #1</p>
         </div>
-        <p className="text-secondary-400 cursor-pointer hover:text-error">
+        <p
+          className="text-secondary-400 cursor-pointer hover:text-error"
+          onClick={onRemove}
+        >
           Remove
         </p>
       </div>
       <Select
         label="Platform"
-        onChange={(value) => setPlatformId(value)}
+        onChange={(value) => {
+          setPlatformId(value);
+          onUpdate({ id: value });
+        }}
+        options={options}
         value={platformId}
         placeholder={
           <div className="flex items-center gap-3">
@@ -56,26 +65,14 @@ export const SocialForm: FC<SocialFormProps> = ({
             Select a platform
           </div>
         }
-        options={options}
       />
       <Input
         label="Link"
         onChange={({ target }) => setUrl(target.value)}
+        onBlur={() => onUpdate({ url })}
         value={url}
         Icon={LinkIcon}
         placeholder="e.g. https://www.github.com/johnappleseed"
-      />
-      <Button
-        label="Save"
-        onClick={() =>
-          mutate([
-            {
-              id: platformId,
-              url,
-              action: "add",
-            },
-          ])
-        }
       />
     </div>
   );

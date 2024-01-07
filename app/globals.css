@@ -15,3 +15,16 @@ html, body {
 body {
   font-size: 1.6rem;
 }
+
+::-webkit-scrollbar {
+  width: .3rem;
+
+}
+::-webkit-scrollbar-track:hover {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddd5d5;
+  border-radius: 1rem;
+}
