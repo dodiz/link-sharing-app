@@ -14,9 +14,11 @@ type SocialFormProps = {
   id: string;
   initialUrl?: string;
   initialProviderId?: string;
+  label: string;
 };
 export const SocialForm: FC<SocialFormProps> = ({
   id,
+  label,
   initialUrl = "",
   initialProviderId = "",
 }) => {
@@ -69,7 +71,7 @@ export const SocialForm: FC<SocialFormProps> = ({
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <DragIcon />
-          <p className="font-bold text-secondary-400">Link #1</p>
+          <p className="font-bold text-secondary-400">{label}</p>
         </div>
         <p
           className="text-secondary-400 cursor-pointer hover:text-error"
