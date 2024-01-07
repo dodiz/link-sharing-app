@@ -61,8 +61,6 @@ export const Preview: FC = () => {
                   }}
                   onDragOver={(e) => {
                     e.preventDefault();
-                    const socialId = e.dataTransfer.getData("socialId");
-                    console.log(socialId);
                   }}
                   onDragLeave={(e) => {
                     e.preventDefault();

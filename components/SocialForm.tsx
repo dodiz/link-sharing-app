@@ -53,7 +53,6 @@ export const SocialForm: FC<SocialFormProps> = ({
       onDragOver={(e) => {
         e.preventDefault();
         const socialId = e.dataTransfer.getData("socialId");
-        console.log(socialId);
         if (socialId !== id) setIsDragOver(true);
       }}
       onDragLeave={(e) => {
