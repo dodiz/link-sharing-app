@@ -2,10 +2,10 @@
 
 import { FC } from "react";
 import Image from "next/image";
+import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 import { socials } from "@/data/socials";
 import { useSocials } from "@/hooks/useSocials";
 import { Typography } from "@/ui/Typography";
-import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 
 export const Preview: FC = () => {
   const { userSocials } = useSocials();

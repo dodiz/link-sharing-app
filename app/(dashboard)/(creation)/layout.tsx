@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
+import { Header } from "@/components/Header";
+import { Preview } from "@/components/Preview";
 import { SocialsProvider } from "@/context/SocialsProvider";
 import { api } from "@/utils/apiServer";
-import { Header } from "../../components/Header";
-import { Preview } from "../../components/Preview";
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const socials = await api.socials.getAll.query();

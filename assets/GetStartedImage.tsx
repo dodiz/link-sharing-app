@@ -1,6 +1,6 @@
 import { ComponentProps, FC } from "react";
 
-export const IllustrationImageImage: FC<ComponentProps<"svg">> = (props) => {
+export const GetStartedImage: FC<ComponentProps<"svg">> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
