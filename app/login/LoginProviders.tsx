@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { signIn } from "next-auth/react";
-import { GithubIcon } from "@/assets/GithubIcon";
+import Image from "next/image";
 
 export const LoginProviders: FC = () => {
   return (
@@ -11,7 +11,7 @@ export const LoginProviders: FC = () => {
         className="p-4 flex gap-2 items-center justify-center bg-black rounded-sm text-white"
         onClick={() => signIn("github")}
       >
-        <GithubIcon />
+        <Image alt="" width={20} height={20} src="/socials/github.svg" />
         Login in with Github
       </button>
     </div>
