@@ -1,7 +1,8 @@
 "use client";
 
-import { Typography } from "@/ui/Typography";
 import { ComponentProps, FC, useState } from "react";
+import { Typography } from "@/ui/Typography";
+import { cn } from "@/utils/cn";
 
 type InputProps = ComponentProps<"input"> & {
   label?: string;
@@ -15,11 +16,12 @@ export const Input: FC<InputProps> = ({
   onBlur,
   error,
   Icon,
+  className,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <label className="flex flex-col gap-1">
+    <label className={cn("flex flex-col gap-1", className)}>
       {label && <Typography variant="body-s">{label}</Typography>}
       <div
         className={`rounded-sm border-1 px-4 py-3 text-secondary-500 bg-secondary-100 flex items-center gap-2 transition-all ${

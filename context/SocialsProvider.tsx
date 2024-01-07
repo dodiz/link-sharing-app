@@ -30,6 +30,12 @@ export const SocialsContext = createContext({
       url?: string;
     }
   ) => {},
+  email: "",
+  setEmail: (email: string) => {},
+  firstName: "",
+  setFirstName: (firstName: string) => {},
+  lastName: "",
+  setLastName: (lastName: string) => {},
 });
 
 type SocialProviderProps = PropsWithChildren & {
@@ -50,6 +56,10 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
   children,
   initialSocials,
 }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [userSocials, setUserSocials] = useState(
     initialSocials.map((s) => ({
       ...s,
@@ -130,6 +140,12 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
         update,
         swap,
         availableSocials,
+        email,
+        setEmail,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
       }}
     >
       {children}
