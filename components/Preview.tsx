@@ -8,7 +8,7 @@ import { useSocials } from "@/hooks/useSocials";
 import { Typography } from "@/ui/Typography";
 
 export const Preview: FC = () => {
-  const { userSocials, swap } = useSocials();
+  const { userSocials, swap, firstName, lastName, email } = useSocials();
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
@@ -21,7 +21,7 @@ export const Preview: FC = () => {
   );
 
   return (
-    <div className="w-[56rem] bg-secondary-100 py-6 flex justify-center rounded-md">
+    <div className="w-[56rem] bg-secondary-100 py-6 flex justify-center rounded-md sticky top-2">
       <div className="w-[30rem] h-[63rem] relative py-[1.8rem] px-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -37,9 +37,21 @@ export const Preview: FC = () => {
         <div className="flex flex-col gap-5 w-full h-full overflow-auto">
           <div className="flex flex-col w-full items-center gap-6 mt-13">
             <div className="bg-[#EEE] w-24 h-24 rounded-full" />
-            <div className="flex flex-col gap-4 w-full items-center">
-              <div className="bg-[#EEE] w-40 h-4 rounded-md" />
-              <div className="bg-[#EEE] w-18 h-2 rounded-md" />
+            <div className="flex flex-col gap-2 w-full items-center">
+              {firstName || lastName ? (
+                <Typography variant="heading-s" className="text-secondary-500">
+                  {firstName} {lastName}
+                </Typography>
+              ) : (
+                <div className="bg-[#EEE] w-40 h-4 rounded-md" />
+              )}
+              {email ? (
+                <Typography variant="body-s" className="text-secondary-400">
+                  {email}
+                </Typography>
+              ) : (
+                <div className="bg-[#EEE] w-18 h-2 rounded-md" />
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">

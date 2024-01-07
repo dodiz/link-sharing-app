@@ -10,9 +10,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
     <main className="p-6 flex flex-col gap-6">
       <Header />
       <SocialsProvider initialSocials={socials}>
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-center items-start">
           <Preview />
-          <div className="flex-1 p-10 rounded-md bg-secondary-100">
+          <div className="flex-1 p-10 rounded-md bg-secondary-100 max-w-[90rem]">
             {children}
           </div>
         </div>
