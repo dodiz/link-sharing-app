@@ -9,15 +9,14 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 - [Links](#links)
 - [How to run locally](#how-to-run-locally)
 - [Built with](#built-with)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-    - [Deployment](#deployment)
+  - [Stack](#frontend)
+  - [Deployment](#deployment)
 - [Author](#author)
 
 ### The challenge
 
 - Users should login to the app
-- Create, read, update, delete links and see their previews with form validation
+- Create, read, update, delete social links and see their previews with form validation
 - Save their details to a database
 - Drag and drop links to reorder them
 - Add profile details, profile picture upload
@@ -37,36 +36,33 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 - Download [Node.js](https://nodejs.org/en/download/)
 - Download [pnpm](https://pnpm.io/installation)
 - Clone the repo
-- For a local database, download `Docker` and run `docker-compose up -d` to start a postgres container
-- Check `.env.example` to add the required environment variables to a `.env` file
+- Setup a db on [PlanetScale](https://planetscale.com/) and add the connection string to the .env file
+- Setup a [Github OAuth app](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) and add the client id and secret to the .env file
+- Check `.env.example` to add the other env variables
 - Run `pnpm install` to install dependencies
 - Run `pnpm db:push` to push your schema to the database
-  - You might get an env variable error, add NODE_ENV=development to the .env file
 - Run `pnpm dev` to start the development server
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Built with
 
-#### Frontend
+#### Stack
 
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Typescript](https://www.typescriptlang.org/) - For type checking
-- [Tailwind] (https://tailwindcss.com/) - For page styles
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Tailwind] (https://tailwindcss.com/)
 - [React Query](https://react-query.tanstack.com/) - implemented in tRPC
-- [Formik] (https://formik.org/) - For form management
-- [Zod] (https://zod.dev/) - For validation
-
-#### Backend
-
+- [Formik] (https://formik.org/)
+- [Zod] (https://zod.dev/) - validation library
 - [TRPC] (https://trpc.io/) - For server-client communication
-- [Drizzle] (https://orm.drizzle.team/) - DB ORM, postgres, supabase
-- [NextAuth] (https://next-auth.js.org/) - For authentication
+- [Drizzle] (https://orm.drizzle.team/) - DB ORM, postgres
+- [NextAuth] (https://next-auth.js.org/)
 
 #### Deployment
 
-- [Vercel] (https://vercel.com/) - For deployment
-- [PlanetScale] (https://planetscale.com/) - For database hosting
+- [Vercel] (https://vercel.com/)
+- [PlanetScale] (https://planetscale.com/)
 
 ### Author
 
