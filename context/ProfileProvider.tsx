@@ -9,13 +9,14 @@ import {
 } from "react";
 import { ApiOutputs } from "@/server/api/types";
 import { socials } from "@/data/socials";
+import { api } from "@/utils/api";
+
+type Social = ApiOutputs["profile"]["getInfo"]["socials"][number];
 
 export const ProfileContext = createContext({
-  userSocials: [] as {
-    providerId: string;
-    url: string;
+  userSocials: [] as (Social & {
     id: string;
-  }[],
+  })[],
   availableSocials: [] as typeof socials,
   add: () => {},
   remove: (id: string) => {},
@@ -38,10 +39,11 @@ export const ProfileContext = createContext({
   setLastName: (lastName: string) => {},
   image: "",
   setImage: (image: string) => {},
+  save: () => {},
 });
 
 type ProfileProviderProps = PropsWithChildren & {
-  initialSocials: ApiOutputs["profile"]["getInfo"]["socials"];
+  initialSocials: Social[];
   initialEmail: string;
   initialFirstName: string;
   initialLastName: string;
@@ -60,10 +62,18 @@ const uuid = () => {
 export const ProfileProvider: FC<ProfileProviderProps> = ({
   children,
   initialSocials,
+  initialEmail,
+  initialFirstName,
+  initialLastName,
 }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const { mutate } = api.profile.update.useMutation({
+    onSuccess: () => {
+      alert("Saved!");
+    },
+  });
+  const [firstName, setFirstName] = useState(initialFirstName);
+  const [lastName, setLastName] = useState(initialLastName);
+  const [email, setEmail] = useState(initialEmail);
   const [image, setImage] = useState("");
 
   const [userSocials, setUserSocials] = useState(
@@ -137,6 +147,18 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
     [userSocials]
   );
 
+  const save = useCallback(() => {
+    mutate({
+      socials: userSocials.map((social) => ({
+        providerId: social.providerId,
+        url: social.url,
+      })),
+      email,
+      firstName,
+      lastName,
+    });
+  }, [firstName, lastName, email, userSocials]);
+
   return (
     <ProfileContext.Provider
       value={{
@@ -154,6 +176,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         setLastName,
         image,
         setImage,
+        save,
       }}
     >
       {children}

@@ -16,6 +16,7 @@ export default function Page() {
     setEmail,
     setImage,
     image,
+    save,
   } = useProfile();
   return (
     <>
@@ -77,7 +78,7 @@ export default function Page() {
         </div>
       </div>
       <div className="px-10 py-6 rounded-b-md flex justify-end border-t-1 border-secondary-300">
-        <Button label="Save" />
+        <Button label="Save" onClick={() => save()} />
       </div>
     </>
   );

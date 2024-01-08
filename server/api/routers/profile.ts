@@ -1,22 +1,18 @@
+import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { db } from "@/server/db";
+import { profile } from "@/server/db/schema";
 import { createTRPCRouter, publicProcedure } from "../init";
 
-let socials: {
-  providerId: string;
-  url: string;
-}[] = [
-  {
-    providerId: "twitter",
-    url: "https://twitter.com/dodiz",
-  },
-];
 export const profileRouter = createTRPCRouter({
-  getInfo: publicProcedure.query(() => {
+  getInfo: publicProcedure.query(async () => {
+    const profile = await db.query.profile.findFirst();
     return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      socials,
+      ...profile,
+      socials: [] as {
+        url: string;
+        providerId: string;
+      }[],
     };
   }),
   update: publicProcedure
@@ -29,24 +25,23 @@ export const profileRouter = createTRPCRouter({
           z.object({
             url: z.string().url(),
             providerId: z.string(),
-            action: z.enum(["add", "remove"]),
           })
         ),
       })
     )
     .mutation(
-      ({ input: { firstName, lastName, email, socials: inputSocials } }) => {
-        const newSocials = inputSocials.filter(
-          (social) => social.action === "add"
-        );
-        const removedSocials = inputSocials.filter(
-          (social) => social.action === "remove"
-        );
-        socials.push(...newSocials);
-        socials = socials.filter(
-          (social) =>
-            !removedSocials.find((s) => s.providerId === social.providerId)
-        );
+      async ({
+        input: { firstName, lastName, email, socials: inputSocials },
+      }) => {
+        const updatedProfile = await db
+          .update(profile)
+          .set({
+            email,
+            firstName,
+            lastName,
+          })
+          .where(eq(profile.id, 1));
+        return updatedProfile;
       }
     ),
 });

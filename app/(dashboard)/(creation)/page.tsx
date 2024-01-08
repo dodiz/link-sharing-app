@@ -7,7 +7,7 @@ import { Button } from "@/ui/Button";
 import { Typography } from "@/ui/Typography";
 
 export default function Page() {
-  const { userSocials, add } = useProfile();
+  const { userSocials, add, save } = useProfile();
   return (
     <>
       <div className="p-10">
@@ -47,7 +47,7 @@ export default function Page() {
         </div>
       </div>
       <div className="px-10 py-6 rounded-b-md flex justify-end border-t-1 border-secondary-300">
-        <Button label="Save" />
+        <Button label="Save" onClick={() => save()} />
       </div>
     </>
   );

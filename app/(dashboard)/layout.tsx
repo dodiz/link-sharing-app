@@ -13,9 +13,9 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <ProfileProvider
-      initialEmail={email}
-      initialFirstName={firstName}
-      initialLastName={lastName}
+      initialEmail={email || ""}
+      initialFirstName={firstName || ""}
+      initialLastName={lastName || ""}
       initialSocials={socials}
     >
       {children}
