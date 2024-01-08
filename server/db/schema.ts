@@ -5,4 +5,5 @@ export const profile = mysqlTable("profile", {
   firstName: text("first_name"),
   lastName: text("last_name"),
   email: text("email"),
+  user: text("user"),
 });

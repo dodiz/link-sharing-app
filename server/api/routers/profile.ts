@@ -1,21 +1,28 @@
-import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
-import { createTRPCRouter, publicProcedure } from "../init";
+import { createTRPCRouter, protectedProcedure } from "../init";
 
 export const profileRouter = createTRPCRouter({
-  getInfo: publicProcedure.query(async () => {
-    const profile = await db.query.profile.findFirst();
-    return {
-      ...profile,
-      socials: [] as {
-        url: string;
-        providerId: string;
-      }[],
-    };
-  }),
-  update: publicProcedure
+  getInfo: protectedProcedure.query(
+    async ({
+      ctx: {
+        session: { user },
+      },
+    }) => {
+      const profile = await db.query.profile.findFirst({
+        where: (profile, { eq }) => eq(profile.user, user.email),
+      });
+      return {
+        ...profile,
+        socials: [] as {
+          url: string;
+          providerId: string;
+        }[],
+      };
+    }
+  ),
+  update: protectedProcedure
     .input(
       z.object({
         firstName: z.string(),
@@ -31,16 +38,17 @@ export const profileRouter = createTRPCRouter({
     )
     .mutation(
       async ({
-        input: { firstName, lastName, email, socials: inputSocials },
+        ctx: {
+          session: { user },
+        },
+        input: { firstName, lastName, email },
       }) => {
-        const updatedProfile = await db
-          .update(profile)
-          .set({
-            email,
-            firstName,
-            lastName,
-          })
-          .where(eq(profile.id, 1));
+        const updatedProfile = await db.insert(profile).values({
+          email,
+          firstName,
+          lastName,
+          user: user.email,
+        });
         return updatedProfile;
       }
     ),
