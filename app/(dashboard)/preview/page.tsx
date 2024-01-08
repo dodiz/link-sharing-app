@@ -33,26 +33,22 @@ export default function Page() {
           {image ? (
             <img
               src={image}
-              className="rounded-full w-24 h-24 object-cover border-4 border-primary-300"
+              className="rounded-full w-26 h-26 object-cover border-4 border-primary-300"
             />
           ) : (
             <div className="bg-[#EEE] w-24 h-24 rounded-full" />
           )}
           <div className="flex flex-col gap-2 w-full items-center">
             {firstName || lastName ? (
-              <Typography variant="heading-s" className="text-secondary-500">
+              <Typography variant="heading-m" className="text-secondary-500">
                 {firstName} {lastName}
               </Typography>
             ) : (
               <div className="bg-[#EEE] w-40 h-4 rounded-md" />
             )}
-            {email ? (
-              <Typography variant="body-s" className="text-secondary-400">
-                {email}
-              </Typography>
-            ) : (
-              <div className="bg-[#EEE] w-18 h-2 rounded-md" />
-            )}
+            <Typography variant="body-s" className="text-secondary-400">
+              {email}
+            </Typography>
           </div>
         </div>
         <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">
