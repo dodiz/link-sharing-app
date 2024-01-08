@@ -8,7 +8,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { Typography } from "@/ui/Typography";
 
 export const Preview: FC = () => {
-  const { userSocials, swap, firstName, lastName, email } = useProfile();
+  const { userSocials, swap, firstName, lastName, email, image } = useProfile();
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
@@ -36,7 +36,14 @@ export const Preview: FC = () => {
         </svg>
         <div className="flex flex-col gap-5 w-full h-full overflow-auto">
           <div className="flex flex-col w-full items-center gap-6 mt-13">
-            <div className="bg-[#EEE] w-24 h-24 rounded-full" />
+            {image ? (
+              <img
+                src={image}
+                className="rounded-full w-24 h-24 object-cover border-4 border-primary-300"
+              />
+            ) : (
+              <div className="bg-[#EEE] w-24 h-24 rounded-full" />
+            )}
             <div className="flex flex-col gap-2 w-full items-center">
               {firstName || lastName ? (
                 <Typography variant="heading-s" className="text-secondary-500">

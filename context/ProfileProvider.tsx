@@ -36,6 +36,8 @@ export const ProfileContext = createContext({
   setFirstName: (firstName: string) => {},
   lastName: "",
   setLastName: (lastName: string) => {},
+  image: "",
+  setImage: (image: string) => {},
 });
 
 type ProfileProviderProps = PropsWithChildren & {
@@ -62,6 +64,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
 
   const [userSocials, setUserSocials] = useState(
     initialSocials.map((s) => ({
@@ -149,6 +152,8 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         setFirstName,
         lastName,
         setLastName,
+        image,
+        setImage,
       }}
     >
       {children}

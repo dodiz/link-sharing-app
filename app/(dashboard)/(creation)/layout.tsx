@@ -18,7 +18,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       >
         <div className="flex gap-4 justify-center items-start">
           <Preview />
-          <div className="flex-1 p-10 rounded-md bg-secondary-100 max-w-[90rem]">
+          <div className="flex-1 rounded-md bg-secondary-100 max-w-[90rem]">
             {children}
           </div>
         </div>
