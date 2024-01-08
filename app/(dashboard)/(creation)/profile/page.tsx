@@ -1,12 +1,12 @@
 "use client";
 
-import { useSocials } from "@/hooks/useSocials";
+import { useProfile } from "@/hooks/useProfile";
 import { Input } from "@/ui/Input";
 import { Typography } from "@/ui/Typography";
 
 export default function Page() {
   const { firstName, setFirstName, lastName, setLastName, email, setEmail } =
-    useSocials();
+    useProfile();
   return (
     <div>
       <Typography variant="heading-m" className="text-secondary-500">
@@ -32,6 +32,7 @@ export default function Page() {
               fill="#633CFF"
             />
           </svg>
+          <input type="file" />
           <Typography variant="heading-s" className="text-primary-300">
             + Upload Image
           </Typography>

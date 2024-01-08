@@ -5,7 +5,7 @@ import Image from "next/image";
 import { DragIcon } from "@/assets/DragIcon";
 import { LinkIcon } from "@/assets/LinkIcon";
 import { socials } from "@/data/socials";
-import { useSocials } from "@/hooks/useSocials";
+import { useProfile } from "@/hooks/useProfile";
 import { Input } from "@/ui/Input";
 import { Select } from "@/ui/Select";
 import { cn } from "@/utils/cn";
@@ -22,7 +22,7 @@ export const SocialForm: FC<SocialFormProps> = ({
   initialUrl = "",
   initialProviderId = "",
 }) => {
-  const { update, remove, swap } = useSocials();
+  const { update, remove, swap } = useProfile();
   const [url, setUrl] = useState(initialUrl);
   const [platformId, setPlatformId] = useState(initialProviderId);
   const [isDragOver, setIsDragOver] = useState(false);

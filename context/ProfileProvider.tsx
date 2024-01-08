@@ -10,7 +10,7 @@ import {
 import { ApiOutputs } from "@/server/api/types";
 import { socials } from "@/data/socials";
 
-export const SocialsContext = createContext({
+export const ProfileContext = createContext({
   userSocials: [] as {
     providerId: string;
     url: string;
@@ -38,8 +38,11 @@ export const SocialsContext = createContext({
   setLastName: (lastName: string) => {},
 });
 
-type SocialProviderProps = PropsWithChildren & {
-  initialSocials: ApiOutputs["socials"]["getAll"];
+type ProfileProviderProps = PropsWithChildren & {
+  initialSocials: ApiOutputs["profile"]["getInfo"]["socials"];
+  initialEmail: string;
+  initialFirstName: string;
+  initialLastName: string;
 };
 
 const uuid = () => {
@@ -52,7 +55,7 @@ const uuid = () => {
   });
 };
 
-export const SocialsProvider: FC<SocialProviderProps> = ({
+export const ProfileProvider: FC<ProfileProviderProps> = ({
   children,
   initialSocials,
 }) => {
@@ -132,7 +135,7 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
   );
 
   return (
-    <SocialsContext.Provider
+    <ProfileContext.Provider
       value={{
         userSocials,
         add,
@@ -149,6 +152,6 @@ export const SocialsProvider: FC<SocialProviderProps> = ({
       }}
     >
       {children}
-    </SocialsContext.Provider>
+    </ProfileContext.Provider>
   );
 };

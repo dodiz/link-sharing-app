@@ -1,13 +1,13 @@
 "use client";
 
 import { GetStartedImage } from "@/assets/GetStartedImage";
-import { useSocials } from "@/hooks/useSocials";
+import { useProfile } from "@/hooks/useProfile";
 import { SocialForm } from "@/components/SocialForm";
 import { Button } from "@/ui/Button";
 import { Typography } from "@/ui/Typography";
 
 export const Customize = () => {
-  const { userSocials, add } = useSocials();
+  const { userSocials, add } = useProfile();
 
   return (
     <div className="flex flex-col gap-6 mt-10">
