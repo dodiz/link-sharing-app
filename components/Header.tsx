@@ -20,7 +20,9 @@ export const Header: FC = () => {
           Profile Details
         </NavLink>
       </div>
-      <Button as={Link} href="/preview" variant="secondary" label="Preview" />
+      <Button as={Link} href="/preview" variant="secondary">
+        Preview
+      </Button>
     </header>
   );
 };

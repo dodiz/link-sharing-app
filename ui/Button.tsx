@@ -1,15 +1,20 @@
-import { ComponentProps, ComponentPropsWithoutRef, ElementType } from "react";
+import {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  ElementType,
+  PropsWithChildren,
+} from "react";
 
-export type ButtonProps<T extends ElementType> = ComponentProps<"button"> & {
-  as?: T;
-  variant?: "primary" | "secondary";
-  label: string;
-};
+export type ButtonProps<T extends ElementType> = ComponentProps<"button"> &
+  PropsWithChildren & {
+    as?: T;
+    variant?: "primary" | "secondary";
+  };
 
 export const Button = <T extends ElementType = "button">({
   variant = "primary",
-  label,
   as,
+  children,
   ...rest
 }: ButtonProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) => {
@@ -23,7 +28,7 @@ export const Button = <T extends ElementType = "button">({
       }`}
       {...rest}
     >
-      {label}
+      {children}
     </Component>
   );
 };

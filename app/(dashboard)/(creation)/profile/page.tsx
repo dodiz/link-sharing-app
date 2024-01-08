@@ -78,7 +78,7 @@ export default function Page() {
         </div>
       </div>
       <div className="px-10 py-6 rounded-b-md flex justify-end border-t-1 border-secondary-300">
-        <Button label="Save" onClick={() => save()} />
+        <Button onClick={() => save()}>Save</Button>
       </div>
     </>
   );

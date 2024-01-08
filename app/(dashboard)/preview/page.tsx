@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 import { socials } from "@/data/socials";
 import { useProfile } from "@/hooks/useProfile";
@@ -8,7 +8,6 @@ import { Button } from "@/ui/Button";
 import { Typography } from "@/ui/Typography";
 
 export default function Page() {
-  const router = useRouter();
   const { userSocials, firstName, lastName, email, image } = useProfile();
   const socialsWithIcons = userSocials
     .map((social) => ({
@@ -20,12 +19,10 @@ export default function Page() {
     <>
       <div className="rounded-b-3xl h-[35rem] bg-primary-300 p-6">
         <div className="flex justify-between items-center bg-secondary-100 py-4 px-6 rounded-md">
-          <Button
-            variant="secondary"
-            label="Back to Editor"
-            onClick={() => router.push("/")}
-          />
-          <Button label="Share Link" />
+          <Button variant="secondary" as={Link} href="/">
+            Back to Editor
+          </Button>
+          <Button>Share Link</Button>
         </div>
       </div>
       <div className="mx-auto px-14 py-12 w-[35rem] flex flex-col gap-5 rounded-md -translate-y-1/4 bg-secondary-100">

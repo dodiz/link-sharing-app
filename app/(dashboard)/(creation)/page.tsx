@@ -17,7 +17,9 @@ export default function Page() {
           world!
         </Typography>
         <div className="flex flex-col gap-6 mt-10">
-          <Button variant="secondary" label="Add new link" onClick={add} />
+          <Button variant="secondary" onClick={add}>
+            Add new link
+          </Button>
           {userSocials.length > 0 ? (
             userSocials.map((social, index) => (
               <SocialForm
@@ -47,7 +49,7 @@ export default function Page() {
         </div>
       </div>
       <div className="px-10 py-6 rounded-b-md flex justify-end border-t-1 border-secondary-300">
-        <Button label="Save" onClick={() => save()} />
+        <Button onClick={() => save()}>Save</Button>
       </div>
     </>
   );
