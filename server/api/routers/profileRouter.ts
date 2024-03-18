@@ -4,7 +4,7 @@ import { profile } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "../init";
 
 export const profileRouter = createTRPCRouter({
-  getInfo: protectedProcedure.query(
+  get: protectedProcedure.query(
     async ({
       ctx: {
         session: { user },
@@ -43,12 +43,22 @@ export const profileRouter = createTRPCRouter({
         },
         input: { firstName, lastName, email },
       }) => {
-        const updatedProfile = await db.insert(profile).values({
-          email,
-          firstName,
-          lastName,
-          user: user.email,
-        });
+        const updatedProfile = await db
+          .insert(profile)
+          .values({
+            user: user.email,
+            email,
+            firstName,
+            lastName,
+          })
+          .onConflictDoUpdate({
+            target: profile.user,
+            set: {
+              email,
+              firstName,
+              lastName,
+            },
+          });
         return updatedProfile;
       }
     ),

@@ -7,11 +7,12 @@ import {
   useMemo,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 import { ApiOutputs } from "@/server/api/types";
 import { socials } from "@/data/socials";
 import { api } from "@/utils/api";
 
-type Social = ApiOutputs["profile"]["getInfo"]["socials"][number];
+type Social = ApiOutputs["profile"]["get"]["socials"][number];
 
 export const ProfileContext = createContext({
   userSocials: [] as (Social & {
@@ -66,7 +67,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
 }) => {
   const { mutate } = api.profile.update.useMutation({
     onSuccess: () => {
-      alert("Saved!");
+      toast.success("Profile updated");
     },
   });
   const [firstName, setFirstName] = useState(initialFirstName);
