@@ -24,7 +24,7 @@ export const Input: FC<InputProps> = ({
     <label className={cn("flex flex-col gap-1", className)}>
       {label && <Typography variant="body-s">{label}</Typography>}
       <div
-        className={`rounded-sm border-1 px-4 py-3 text-secondary-500 bg-secondary-100 flex items-center gap-2 transition-all ${
+        className={`rounded-sm border-1 px-4 py-3 text-secondary-500 bg-secondary-50 flex items-center gap-2 transition-all ${
           isFocused
             ? "border-primary-300 shadow-accent"
             : error

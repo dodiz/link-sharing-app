@@ -10,7 +10,7 @@ import { PreviewIcon } from "@/assets/PreviewIcon";
 
 export const Header: FC = () => {
   return (
-    <header className="bg-secondary-100 px-6 py-3 flex items-center justify-between rounded-md">
+    <header className="bg-secondary-50 px-6 py-3 flex items-center justify-between rounded-md">
       <div className="flex items-center gap-2">
         <LogoIcon />
         <LogoText className="hidden md:inline" />

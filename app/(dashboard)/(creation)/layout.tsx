@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Header />
       <div className="flex gap-4 justify-center items-start">
         <Preview />
-        <div className="flex-1 rounded-md bg-secondary-100 max-w-[90rem]">
+        <div className="flex-1 rounded-md bg-secondary-50 max-w-[90rem]">
           {children}
         </div>
       </div>

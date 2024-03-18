@@ -59,7 +59,7 @@ export const Select: FC<SelectProps> = ({
               {options.map((option) => (
                 <Item
                   key={option.value}
-                  className="relative flex gap-3 w-full cursor-pointer select-none items-center py-3 outline-none border-secondary-300 focus:text-primary-300 focus:bg-secondary-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50  border-b last:border-b-0"
+                  className="relative flex gap-3 w-full cursor-pointer select-none items-center py-3 outline-none border-secondary-300 focus:text-primary-300 focus:bg-secondary-50 data-[disabled]:pointer-events-none data-[disabled]:opacity-50  border-b last:border-b-0"
                   value={option.value}
                 >
                   {option.label}

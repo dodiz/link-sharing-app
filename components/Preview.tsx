@@ -9,19 +9,21 @@ import { Typography } from "@/ui/Typography";
 
 export const Preview: FC = () => {
   const { userSocials, swap, firstName, lastName, email, image } = useProfile();
+
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
       ...socials.find((s) => s.providerId === social.providerId)!,
     }))
     .filter((social) => !!social.providerId);
+
   const skeletons = Array.from(
     { length: 5 - socialsWithIcons.length },
     (_, i) => i
   );
 
   return (
-    <div className="w-[32rem] xl:w-[56rem] bg-secondary-100 py-6 hidden lg:flex justify-center rounded-md sticky top-2">
+    <div className="w-[32rem] xl:w-[56rem] bg-secondary-50 py-6 hidden lg:flex justify-center rounded-md sticky top-2">
       <div className="w-[30rem] h-[63rem] relative py-[1.8rem] px-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +44,7 @@ export const Preview: FC = () => {
                 className="rounded-full w-24 h-24 object-cover border-4 border-primary-300"
               />
             ) : (
-              <div className="bg-[#EEE] w-24 h-24 rounded-full" />
+              <div className="bg-secondary-100 w-24 h-24 rounded-full" />
             )}
             <div className="flex flex-col gap-2 w-full items-center">
               {firstName || lastName ? (
@@ -50,24 +52,24 @@ export const Preview: FC = () => {
                   {firstName} {lastName}
                 </Typography>
               ) : (
-                <div className="bg-[#EEE] w-40 h-4 rounded-md" />
+                <div className="bg-secondary-100 w-40 h-4 rounded-md" />
               )}
               {email ? (
                 <Typography variant="body-s" className="text-secondary-400">
                   {email}
                 </Typography>
               ) : (
-                <div className="bg-[#EEE] w-18 h-2 rounded-md" />
+                <div className="bg-secondary-100 w-18 h-2 rounded-md" />
               )}
             </div>
           </div>
           <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">
             {socialsWithIcons
-              .filter((social) => !!social.id)
+              .filter((social) => !!social.providerId)
               .map((social) => (
                 <div
                   className="flex gap-2 items-center rounded-sm p-4 cursor-pointer"
-                  key={social.id}
+                  key={social.providerId}
                   style={{
                     backgroundColor: social.bgColor,
                     color: social.textColor,
@@ -76,7 +78,7 @@ export const Preview: FC = () => {
                   }}
                   draggable
                   onDragStart={(e) => {
-                    e.dataTransfer.setData("socialId", social.id);
+                    e.dataTransfer.setData("socialId", social.providerId);
                   }}
                   onDragOver={(e) => {
                     e.preventDefault();
@@ -87,7 +89,7 @@ export const Preview: FC = () => {
                   onDrop={(e) => {
                     e.preventDefault();
                     const socialId = e.dataTransfer.getData("socialId");
-                    swap(socialId, social.id);
+                    swap(socialId, social.providerId);
                   }}
                 >
                   <Image
@@ -107,7 +109,7 @@ export const Preview: FC = () => {
               ))}
             {skeletons.map((_, i) => (
               <div
-                className="w-full h-12 shrink-0 rounded-sm bg-[#EEE]"
+                className="w-full h-12 shrink-0 rounded-sm bg-secondary-100"
                 key={i}
               />
             ))}

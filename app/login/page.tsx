@@ -10,7 +10,7 @@ export default function Page() {
         <LogoIcon />
         <LogoText />
       </div>
-      <div className="p-10 w-[48rem] rounded-md flex flex-col gap-10 bg-secondary-100">
+      <div className="p-10 w-[48rem] rounded-md flex flex-col gap-10 bg-secondary-50">
         <div className="flex flex-col gap-2">
           <Typography variant="heading-m">Login</Typography>
           <Typography variant="body-m">
