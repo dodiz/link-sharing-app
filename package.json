@@ -6,6 +6,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "db:push": "drizzle-kit push:mysql --config=drizzle.config.ts",
+    "studio": "drizzle-kit studio",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
