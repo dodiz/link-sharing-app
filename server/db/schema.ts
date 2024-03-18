@@ -1,9 +1,9 @@
-import { text, mysqlTable, int } from "drizzle-orm/mysql-core";
+import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
 
-export const profile = mysqlTable("profile", {
-  id: int("id").primaryKey().autoincrement(),
-  user: text("user").unique(),
-  firstName: text("first_name"),
-  lastName: text("last_name"),
-  email: text("email"),
+export const profile = pgTable("profile", {
+  id: serial("id").primaryKey(),
+  user: varchar("user").unique(),
+  firstName: varchar("first_name"),
+  lastName: varchar("last_name"),
+  email: varchar("email"),
 });

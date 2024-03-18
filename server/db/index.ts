@@ -1,14 +1,13 @@
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { Client } from "@planetscale/database";
-import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import { env } from "@/env";
+import * as schema from "./schema";
 
-const client = new Client({
-  host: env.DATABASE_HOST,
-  username: env.DATABASE_USERNAME,
-  password: env.DATABASE_PASSWORD,
-});
-
+const client = neon(env.DATABASE_URI);
+/**
+ * @todo remove ts-ignore once drizzle fixes this
+ */
+//@ts-ignore
 export const db = drizzle(client, {
   schema,
 });
