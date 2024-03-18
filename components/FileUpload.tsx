@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { Typography } from "@/ui/Typography";
 import { env } from "@/env.js";
 import { cn } from "@/utils/cn";
+import { toast } from "react-toastify";
 
 const MAX_SIZE = 1024 * 1024 * +env.NEXT_PUBLIC_AVATAR_SIZE_KB;
 
@@ -33,11 +34,11 @@ export const FileUpload: FC<FileUploadProps> = ({
       const rejectedFile = rejectedFiles[0]!;
       rejectedFile.errors.forEach((error) => {
         if (error.code === "file-too-large") {
-          alert(`La dimensione massima consentita è di X KB`);
+          toast.error(`La dimensione massima consentita è di ${MAX_SIZE} KB`);
         } else if (error.code === "too-many-files") {
-          alert("E' possibile caricare un solo file");
+          toast.error("E' possibile caricare un solo file");
         } else {
-          alert("Errore durante il caricamento del file");
+          toast.error("Errore durante il caricamento del file");
         }
       });
     },
