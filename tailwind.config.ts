@@ -51,6 +51,7 @@ const config = {
       screens: {
         md: "768px",
         lg: "1024px",
+        xl: "1366px",
       },
       fontSize: {
         xl: "3.2rem",

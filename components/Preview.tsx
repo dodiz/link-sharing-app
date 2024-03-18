@@ -21,7 +21,7 @@ export const Preview: FC = () => {
   );
 
   return (
-    <div className="w-[56rem] bg-secondary-100 py-6 flex justify-center rounded-md sticky top-2">
+    <div className="w-[32rem] xl:w-[56rem] bg-secondary-100 py-6 hidden lg:flex justify-center rounded-md sticky top-2">
       <div className="w-[30rem] h-[63rem] relative py-[1.8rem] px-6">
         <svg
           xmlns="http://www.w3.org/2000/svg"

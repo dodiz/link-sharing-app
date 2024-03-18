@@ -4,7 +4,7 @@ import { Preview } from "@/components/Preview";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <main className="p-6 flex flex-col gap-6">
+    <main className="md:p-6 flex flex-col gap-6">
       <Header />
       <div className="flex gap-4 justify-center items-start">
         <Preview />

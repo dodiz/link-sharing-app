@@ -48,8 +48,10 @@ export default function Page() {
           )}
         </div>
       </div>
-      <div className="px-10 py-6 rounded-b-md flex justify-end border-t-1 border-secondary-300">
-        <Button onClick={() => save()}>Save</Button>
+      <div className="p-4 md:px-10 md:py-6 rounded-b-md flex md:justify-end border-t-1 border-secondary-300">
+        <Button disabled onClick={() => save()} className="w-full md:w-max">
+          Save
+        </Button>
       </div>
     </>
   );

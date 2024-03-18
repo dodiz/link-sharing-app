@@ -17,7 +17,7 @@ export default function Page() {
     .filter((social) => !!social.providerId);
   return (
     <>
-      <div className="rounded-b-3xl h-[35rem] bg-primary-300 p-6">
+      <div className="md:rounded-b-3xl md:h-[35rem] md:bg-primary-300 md:p-6">
         <div className="flex justify-between items-center bg-secondary-100 py-4 px-6 rounded-md">
           <Button variant="secondary" as={Link} href="/">
             Back to Editor
@@ -25,7 +25,7 @@ export default function Page() {
           <Button>Share Link</Button>
         </div>
       </div>
-      <div className="mx-auto px-14 py-12 w-[35rem] flex flex-col gap-5 rounded-md -translate-y-1/4 bg-secondary-100">
+      <div className="md:mx-auto px-14 py-12 w-full md:w-[35rem] flex flex-col gap-5 md:rounded-md md:-translate-y-1/4 bg-secondary-100">
         <div className="flex flex-col w-full items-center gap-6 mt-13">
           {image ? (
             <img
