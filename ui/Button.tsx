@@ -29,16 +29,16 @@ export const Button = <T extends ElementType = "button">({
     <Component
       disabled={disabled || loading}
       className={cn(
-        `transition-all flex gap-2 justify-center items-center py-[1.1rem] px-7 rounded-sm font-semibold disabled:opacity-75 disabled:cursor-not-allowed ${
+        `flex items-center justify-center gap-2 rounded-sm px-7 py-[1.1rem] font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-75 ${
           variant === "primary"
-            ? "bg-primary-300 hover:bg-primary-200 hover:shadow-accent text-white"
-            : "bg-secondary-50 hover:bg-primary-100 border-1 text-primary-300 border-primary-300  disabled:bg-secondary-300"
+            ? "bg-primary-300 text-white hover:bg-primary-200 hover:shadow-accent"
+            : "border-1  border-primary-300 bg-secondary-50 text-primary-300 hover:bg-primary-100  disabled:bg-secondary-300"
         }`,
-        className
+        className,
       )}
       {...rest}
     >
-      {!loading && <SpinnerIcon className="text-secondary-50" />}
+      {!loading && <SpinnerIcon />}
       {children}
     </Component>
   );

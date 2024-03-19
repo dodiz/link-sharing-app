@@ -24,14 +24,14 @@ export default function Page() {
         <Typography variant="heading-m" className="text-secondary-500">
           Profile Details
         </Typography>
-        <Typography variant="body-m" className="text-secondary-400 mt-2">
+        <Typography variant="body-m" className="mt-2 text-secondary-400">
           Add your details to create a personal touch to your profile.
         </Typography>
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-10 p-5 rounded-md bg-secondary-200">
-          <Typography variant="body-m" className="text-secondary-400 w-[24rem]">
+        <div className="mt-10 flex flex-col justify-between gap-4 rounded-md bg-secondary-200 p-5 md:flex-row md:items-center">
+          <Typography variant="body-m" className="w-[24rem] text-secondary-400">
             Profile Picture
           </Typography>
-          <div className="flex flex-col md:flex-row md:items-center gap-8">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center">
             <FileUpload
               imageUrl={image}
               onDrop={(file) => {
@@ -39,13 +39,13 @@ export default function Page() {
               }}
               onRemoveImage={() => setImage("")}
             />
-            <Typography variant="body-m" className="text-secondary-400 flex-1">
+            <Typography variant="body-m" className="flex-1 text-secondary-400">
               Image must be below 1024x1024px. Use PNG or JPG format.
             </Typography>
           </div>
         </div>
-        <div className="flex flex-col gap-3 mt-6 p-5 rounded-md bg-secondary-200">
-          <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+        <div className="mt-6 flex flex-col gap-3 rounded-md bg-secondary-200 p-5">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <Typography variant="body-m" className="w-96 text-secondary-400">
               First name*
             </Typography>
@@ -55,7 +55,7 @@ export default function Page() {
               className="flex-1"
             />
           </div>
-          <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <Typography variant="body-m" className="w-96 text-secondary-400">
               Last name*
             </Typography>
@@ -65,7 +65,7 @@ export default function Page() {
               className="flex-1"
             />
           </div>
-          <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <Typography variant="body-m" className="w-96 text-secondary-400">
               Email
             </Typography>
@@ -77,7 +77,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="p-4 md:px-10 md:py-6 rounded-b-md flex md:justify-end border-t-1 border-secondary-300">
+      <div className="flex rounded-b-md border-t-1 border-secondary-300 p-4 md:justify-end md:px-10 md:py-6">
         <Button onClick={() => save()} className="w-full md:w-max">
           Save
         </Button>

@@ -36,11 +36,11 @@ export const SocialForm: FC<SocialFormProps> = ({
         .filter(
           (social) =>
             social.providerId === providerId ||
-            !userSocials.find((s) => s.providerId === social.providerId)
+            !userSocials.find((s) => s.providerId === social.providerId),
         )
         .map((s) => ({
           label: (
-            <div className="flex gap-3 items-center">
+            <div className="flex items-center gap-3">
               <Image
                 alt={s.label}
                 width={20}
@@ -52,15 +52,15 @@ export const SocialForm: FC<SocialFormProps> = ({
           ),
           value: s.providerId,
         })),
-    [userSocials]
+    [userSocials],
   );
 
   return (
     <div
       className={cn(
-        "rounded-md p-5 bg-secondary-200 flex flex-col gap-3",
+        "flex flex-col gap-3 rounded-md bg-secondary-200 p-5",
         isDragOver &&
-          "border-b-2 border-primary-300 shadow-accent transition-all"
+          "border-b-2 border-primary-300 shadow-accent transition-all",
       )}
       draggable
       onDragStart={(e) => {
@@ -88,7 +88,7 @@ export const SocialForm: FC<SocialFormProps> = ({
           <p className="font-bold text-secondary-400">{label}</p>
         </div>
         <p
-          className="text-secondary-400 cursor-pointer hover:text-error"
+          className="cursor-pointer text-secondary-400 hover:text-error"
           onClick={() => remove(id)}
         >
           Remove

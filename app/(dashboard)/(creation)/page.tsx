@@ -16,7 +16,7 @@ export default function Page() {
           Add/edit/remove links below and then share all your profiles with the
           world!
         </Typography>
-        <div className="flex flex-col gap-6 mt-10">
+        <div className="mt-10 flex flex-col gap-6">
           <Button variant="secondary" onClick={add}>
             Add new link
           </Button>
@@ -31,13 +31,13 @@ export default function Page() {
               />
             ))
           ) : (
-            <div className="flex flex-col justify-center items-center px-5 py-15 rounded-md bg-secondary-200">
+            <div className="flex flex-col items-center justify-center rounded-md bg-secondary-200 px-5 py-15">
               <GetStartedImage />
               <Typography className="mt-10" variant="heading-m">
                 Let's get you started
               </Typography>
               <Typography
-                className="mt-6 text-center max-w-3xl text-secondary-400"
+                className="mt-6 max-w-3xl text-center text-secondary-400"
                 variant="body-m"
               >
                 Use the “Add new link” button to get started. Once you have more
@@ -48,7 +48,7 @@ export default function Page() {
           )}
         </div>
       </div>
-      <div className="p-4 md:px-10 md:py-6 rounded-b-md flex md:justify-end border-t-1 border-secondary-300">
+      <div className="flex rounded-b-md border-t-1 border-secondary-300 p-4 md:justify-end md:px-10 md:py-6">
         <Button disabled onClick={() => save()} className="w-full md:w-max">
           Save
         </Button>

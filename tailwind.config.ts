@@ -64,7 +64,7 @@ const config = {
           .filter((i) => i)
           .reduce(
             (acc, i) => ({ ...acc, [i]: `${i / (baseFontSize / 4)}rem` }),
-            {}
+            {},
           ),
       }),
       borderWidth: {

@@ -28,7 +28,7 @@ export const ProfileContext = createContext({
     }: {
       providerId?: string;
       url?: string;
-    }
+    },
   ) => {},
   email: "",
   setEmail: (email: string) => {},
@@ -70,9 +70,10 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   const availableSocials = useMemo(
     () =>
       socials.filter(
-        (social) => !userSocials.find((s) => s.providerId === social.providerId)
+        (social) =>
+          !userSocials.find((s) => s.providerId === social.providerId),
       ),
-    [userSocials]
+    [userSocials],
   );
 
   const add = useCallback(() => {
@@ -84,7 +85,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
     (firstId: string, secondId: string) => {
       const firstIndex = userSocials.findIndex((s) => s.providerId === firstId);
       const secondIndex = userSocials.findIndex(
-        (s) => s.providerId === secondId
+        (s) => s.providerId === secondId,
       );
       if (firstIndex === -1 || secondIndex === -1) return;
       const newSocials = [...userSocials];
@@ -92,7 +93,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
       newSocials[secondIndex] = userSocials[firstIndex]!;
       setUserSocials(newSocials);
     },
-    [userSocials]
+    [userSocials],
   );
 
   const update = useCallback(
@@ -104,7 +105,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
       }: {
         providerId?: string;
         url?: string;
-      }
+      },
     ) => {
       const social = userSocials.find((s) => s.providerId === id);
       if (!social) return;
@@ -120,10 +121,10 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
             return social;
           }
           return s;
-        })
+        }),
       );
     },
-    [userSocials]
+    [userSocials],
   );
 
   const save = useCallback(() => {

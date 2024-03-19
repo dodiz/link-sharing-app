@@ -24,12 +24,12 @@ export const Input: FC<InputProps> = ({
     <label className={cn("flex flex-col gap-1", className)}>
       {label && <Typography variant="body-s">{label}</Typography>}
       <div
-        className={`rounded-sm border-1 px-4 py-3 text-secondary-500 bg-secondary-50 flex items-center gap-2 transition-all ${
+        className={`flex items-center gap-2 rounded-sm border-1 bg-secondary-50 px-4 py-3 text-secondary-500 transition-all ${
           isFocused
             ? "border-primary-300 shadow-accent"
             : error
-            ? "border-error text-error"
-            : "border-secondary-300"
+              ? "border-error text-error"
+              : "border-secondary-300"
         }`}
       >
         {Icon && <Icon />}
@@ -42,12 +42,12 @@ export const Input: FC<InputProps> = ({
             setIsFocused(false);
             onBlur?.(e);
           }}
-          className="outline-none flex-1"
+          className="flex-1 outline-none"
           type="text"
           {...rest}
         />
         {error && (
-          <div className="text-xs text-error whitespace-nowrap">{error}</div>
+          <div className="whitespace-nowrap text-xs text-error">{error}</div>
         )}
       </div>
     </label>

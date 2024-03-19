@@ -2,13 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 html {
   font-size: 62.5%;
 }
-html, body {
+html,
+body {
   min-height: 100%;
 }
 
@@ -17,8 +20,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: .3rem;
-
+  width: 0.3rem;
 }
 ::-webkit-scrollbar-track:hover {
   background: #f1f1f1;

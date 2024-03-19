@@ -20,7 +20,7 @@ export const profileRouter = createTRPCRouter({
           providerId: string;
         }[],
       };
-    }
+    },
   ),
   update: protectedProcedure
     .input(
@@ -32,9 +32,9 @@ export const profileRouter = createTRPCRouter({
           z.object({
             url: z.string().url(),
             providerId: z.string(),
-          })
+          }),
         ),
-      })
+      }),
     )
     .mutation(
       async ({
@@ -60,6 +60,6 @@ export const profileRouter = createTRPCRouter({
             },
           });
         return updatedProfile;
-      }
+      },
     ),
 });

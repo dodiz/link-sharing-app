@@ -3,7 +3,7 @@
 import { type RefObject, useEffect, useRef, useCallback } from "react";
 
 export const useClickOutside = (
-  callback: () => void
+  callback: () => void,
 ): RefObject<HTMLDivElement> => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -13,7 +13,7 @@ export const useClickOutside = (
         callback();
       }
     },
-    [callback]
+    [callback],
   );
 
   const handleEscape = useCallback(
@@ -22,7 +22,7 @@ export const useClickOutside = (
         callback();
       }
     },
-    [callback]
+    [callback],
   );
 
   useEffect(() => {

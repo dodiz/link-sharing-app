@@ -8,7 +8,7 @@ export const LoginProviders: FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <button
-        className="p-4 flex gap-2 items-center justify-center bg-black rounded-sm text-white"
+        className="flex items-center justify-center gap-2 rounded-sm bg-black p-4 text-white"
         onClick={() => signIn("github")}
       >
         <Image alt="" width={20} height={20} src="/socials/github.svg" />

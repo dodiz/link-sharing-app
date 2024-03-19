@@ -5,12 +5,12 @@ import { LoginProviders } from "./LoginProviders";
 
 export default function Page() {
   return (
-    <div className="h-screen flex flex-col items-center justify-center gap-13">
+    <div className="flex h-screen flex-col items-center justify-center gap-13">
       <div className="flex items-center gap-2">
         <LogoIcon />
         <LogoText />
       </div>
-      <div className="p-10 w-[48rem] rounded-md flex flex-col gap-10 bg-secondary-50">
+      <div className="flex w-[48rem] flex-col gap-10 rounded-md bg-secondary-50 p-10">
         <div className="flex flex-col gap-2">
           <Typography variant="heading-m">Login</Typography>
           <Typography variant="body-m">

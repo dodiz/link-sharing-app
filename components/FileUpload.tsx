@@ -45,15 +45,15 @@ export const FileUpload: FC<FileUploadProps> = ({
   });
 
   return (
-    <section className="flex justify-center items-center bg-primary-100 w-72 h-72 rounded-md">
+    <section className="flex h-72 w-72 items-center justify-center rounded-md bg-primary-100">
       {!!imageUrl ? (
-        <div className="relative w-72 h-72" onClick={onRemoveImage}>
+        <div className="relative h-72 w-72" onClick={onRemoveImage}>
           <img
             src={imageUrl}
             alt="preview"
-            className="rounded-md absolute top-0 left-0 w-full h-full object-cover"
+            className="absolute left-0 top-0 h-full w-full rounded-md object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-2">
+          <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="40"
@@ -75,7 +75,7 @@ export const FileUpload: FC<FileUploadProps> = ({
           {...getRootProps({
             className: cn(
               "flex items-center justify-center flex-col text-center gap-2",
-              error && "styles.error"
+              error && "styles.error",
             ),
           })}
         >

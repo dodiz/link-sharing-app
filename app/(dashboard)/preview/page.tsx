@@ -17,42 +17,42 @@ export default function Page() {
     .filter((social) => !!social.providerId);
   return (
     <>
-      <div className="md:rounded-b-3xl md:h-[35rem] md:bg-primary-300 md:p-6">
-        <div className="flex justify-between items-center bg-secondary-100 py-4 px-6 rounded-md">
+      <div className="md:h-[35rem] md:rounded-b-3xl md:bg-primary-300 md:p-6">
+        <div className="flex items-center justify-between rounded-md bg-secondary-100 px-6 py-4">
           <Button variant="secondary" as={Link} href="/">
             Back to Editor
           </Button>
           <Button>Share Link</Button>
         </div>
       </div>
-      <div className="md:mx-auto px-14 py-12 w-full md:w-[35rem] flex flex-col gap-5 md:rounded-md md:-translate-y-1/4 bg-secondary-100">
-        <div className="flex flex-col w-full items-center gap-6 mt-13">
+      <div className="flex w-full flex-col gap-5 bg-secondary-100 px-14 py-12 md:mx-auto md:w-[35rem] md:-translate-y-1/4 md:rounded-md">
+        <div className="mt-13 flex w-full flex-col items-center gap-6">
           {image ? (
             <img
               src={image}
-              className="rounded-full w-26 h-26 object-cover border-4 border-primary-300"
+              className="h-26 w-26 rounded-full border-4 border-primary-300 object-cover"
             />
           ) : (
-            <div className="bg-[#EEE] w-24 h-24 rounded-full" />
+            <div className="h-24 w-24 rounded-full bg-[#EEE]" />
           )}
-          <div className="flex flex-col gap-2 w-full items-center">
+          <div className="flex w-full flex-col items-center gap-2">
             {firstName || lastName ? (
               <Typography variant="heading-m" className="text-secondary-500">
                 {firstName} {lastName}
               </Typography>
             ) : (
-              <div className="bg-[#EEE] w-40 h-4 rounded-md" />
+              <div className="h-4 w-40 rounded-md bg-[#EEE]" />
             )}
             <Typography variant="body-s" className="text-secondary-400">
               {email}
             </Typography>
           </div>
         </div>
-        <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">
+        <div className="mb-6 flex w-full flex-1 flex-col gap-5 px-2">
           {socialsWithIcons.map((social) => (
             <div
               key={social.providerId}
-              className="flex gap-2 items-center rounded-sm p-4 cursor-pointer"
+              className="flex cursor-pointer items-center gap-2 rounded-sm p-4"
               style={{
                 backgroundColor: social.bgColor,
                 color: social.textColor,
