@@ -22,23 +22,37 @@ export const SocialForm: FC<SocialFormProps> = ({
   initialUrl = "",
   initialProviderId = "",
 }) => {
-  const { update, remove, swap } = useProfile();
+  const { update, remove, swap, userSocials } = useProfile();
   const [url, setUrl] = useState(initialUrl);
-  const [platformId, setPlatformId] = useState(initialProviderId);
+  const [providerId, setProviderId] = useState(initialProviderId);
   const [isDragOver, setIsDragOver] = useState(false);
 
+  /**
+   * Options filtered to prevent duplicate socials
+   */
   const options = useMemo(
     () =>
-      socials.map((s) => ({
-        label: (
-          <div className="flex gap-3 items-center">
-            <Image alt={s.label} width={20} height={20} src={s.iconGrayPath} />{" "}
-            {s.label}
-          </div>
-        ),
-        value: s.providerId,
-      })),
-    []
+      socials
+        .filter(
+          (social) =>
+            social.providerId === providerId ||
+            !userSocials.find((s) => s.providerId === social.providerId)
+        )
+        .map((s) => ({
+          label: (
+            <div className="flex gap-3 items-center">
+              <Image
+                alt={s.label}
+                width={20}
+                height={20}
+                src={s.iconGrayPath}
+              />{" "}
+              {s.label}
+            </div>
+          ),
+          value: s.providerId,
+        })),
+    [userSocials]
   );
 
   return (
@@ -83,11 +97,11 @@ export const SocialForm: FC<SocialFormProps> = ({
       <Select
         label="Platform"
         onChange={(value) => {
-          setPlatformId(value);
+          setProviderId(value);
           update(id, { providerId: value });
         }}
         options={options}
-        value={platformId}
+        value={providerId}
         placeholder={
           <div className="flex items-center gap-3">
             <LinkIcon fill="currentColor" />

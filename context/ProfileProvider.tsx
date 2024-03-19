@@ -15,9 +15,7 @@ import { api } from "@/utils/api";
 type Social = ApiOutputs["profile"]["get"]["socials"][number];
 
 export const ProfileContext = createContext({
-  userSocials: [] as (Social & {
-    id: string;
-  })[],
+  userSocials: [] as Social[],
   availableSocials: [] as typeof socials,
   add: () => {},
   remove: (id: string) => {},
@@ -50,14 +48,6 @@ type ProfileProviderProps = PropsWithChildren & {
   initialLastName: string;
 };
 
-const uuid = () => {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
-
 export const ProfileProvider: FC<ProfileProviderProps> = ({
   children,
   initialSocials,
@@ -75,12 +65,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   const [email, setEmail] = useState(initialEmail);
   const [image, setImage] = useState("");
 
-  const [userSocials, setUserSocials] = useState(
-    initialSocials.map((s) => ({
-      ...s,
-      id: uuid(),
-    }))
-  );
+  const [userSocials, setUserSocials] = useState(initialSocials);
 
   const availableSocials = useMemo(
     () =>
@@ -91,21 +76,16 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   );
 
   const add = useCallback(() => {
-    setUserSocials((prev) => [
-      { providerId: "", url: "", id: uuid() },
-      ...prev,
-    ]);
-  }, []);
-
-  const remove = useCallback(
-    (id: string) => setUserSocials((prev) => prev.filter((s) => s.id !== id)),
-    []
-  );
+    if (userSocials[0]?.providerId === "") return;
+    setUserSocials((prev) => [{ providerId: "", url: "" }, ...prev]);
+  }, [userSocials]);
 
   const swap = useCallback(
     (firstId: string, secondId: string) => {
-      const firstIndex = userSocials.findIndex((s) => s.id === firstId);
-      const secondIndex = userSocials.findIndex((s) => s.id === secondId);
+      const firstIndex = userSocials.findIndex((s) => s.providerId === firstId);
+      const secondIndex = userSocials.findIndex(
+        (s) => s.providerId === secondId
+      );
       if (firstIndex === -1 || secondIndex === -1) return;
       const newSocials = [...userSocials];
       newSocials[firstIndex] = userSocials[secondIndex]!;
@@ -126,7 +106,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         url?: string;
       }
     ) => {
-      const social = userSocials.find((s) => s.id === id);
+      const social = userSocials.find((s) => s.providerId === id);
       if (!social) return;
       if (providerId && !userSocials.find((s) => s.providerId === providerId)) {
         social.providerId = providerId;
@@ -136,7 +116,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
       }
       setUserSocials((prev) =>
         prev.map((s) => {
-          if (s.id === id) {
+          if (s.providerId === id) {
             return social;
           }
           return s;
@@ -163,7 +143,8 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
       value={{
         userSocials,
         add,
-        remove,
+        remove: (id: string) =>
+          setUserSocials((prev) => prev.filter((s) => s.providerId !== id)),
         update,
         swap,
         availableSocials,

@@ -23,9 +23,9 @@ export default function Page() {
           {userSocials.length > 0 ? (
             userSocials.map((social, index) => (
               <SocialForm
-                key={social.id}
+                key={social.providerId}
                 label={`Link #${index + 1}`}
-                id={social.id}
+                id={social.providerId}
                 initialUrl={social.url}
                 initialProviderId={social.providerId}
               />

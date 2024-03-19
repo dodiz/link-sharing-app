@@ -51,8 +51,8 @@ export default function Page() {
         <div className="flex flex-col gap-5 w-full px-2 flex-1 mb-6">
           {socialsWithIcons.map((social) => (
             <div
+              key={social.providerId}
               className="flex gap-2 items-center rounded-sm p-4 cursor-pointer"
-              key={social.id}
               style={{
                 backgroundColor: social.bgColor,
                 color: social.textColor,
