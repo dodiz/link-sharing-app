@@ -54,6 +54,9 @@ const config = {
         sm: "0.8rem",
         md: "1.2rem",
       },
+      borderWidth: {
+        1: ".1rem",
+      },
     },
     container: {
       center: true,
@@ -71,9 +74,6 @@ const config = {
       xl: "3.2rem",
       base: "1.6rem",
       xs: "1.2rem",
-    },
-    borderWidth: {
-      1: ".1rem",
     },
     boxShadow: {
       base: "0 0 3.2rem 0 rgba(0, 0, 0, 0.10)",
