@@ -46,9 +46,12 @@ export const FileUpload: FC<FileUploadProps> = ({
   });
 
   return (
-    <section className="flex h-72 w-72 items-center justify-center rounded-md bg-primary-100">
+    <>
       {!!imageUrl ? (
-        <div className="relative h-72 w-72" onClick={onRemoveImage}>
+        <div
+          className="relative h-72 w-72 cursor-pointer rounded-md bg-primary-100"
+          onClick={onRemoveImage}
+        >
           <img
             src={imageUrl}
             alt="preview"
@@ -67,7 +70,7 @@ export const FileUpload: FC<FileUploadProps> = ({
         <div
           {...getRootProps({
             className: cn(
-              "flex items-center justify-center flex-col text-center gap-2",
+              "cursor-pointer relative h-72 w-72 rounded-md bg-primary-100 flex items-center justify-center flex-col text-center gap-2",
               error && "styles.error",
             ),
           })}
@@ -79,6 +82,6 @@ export const FileUpload: FC<FileUploadProps> = ({
           </Typography>
         </div>
       )}
-    </section>
+    </>
   );
 };
