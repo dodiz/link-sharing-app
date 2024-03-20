@@ -38,7 +38,7 @@ export const Button = <T extends ElementType = "button">({
       )}
       {...rest}
     >
-      {!loading && (
+      {loading && (
         <SpinnerIcon
           className={cn(
             "animate-spin",
