@@ -1,10 +1,8 @@
 "use client";
 
-import { FileUpload } from "@/components/FileUpload";
 import { useProfile } from "@/hooks/useProfile";
-import { Button } from "@/ui/Button";
-import { Input } from "@/ui/Input";
-import { Typography } from "@/ui/Typography";
+import { Button, Input, Typography } from "@/ui";
+import { FileUpload } from "./FileUpload";
 
 export default function Page() {
   const {
@@ -17,6 +15,7 @@ export default function Page() {
     setImage,
     image,
     save,
+    isSaving,
   } = useProfile();
   return (
     <>
@@ -78,7 +77,11 @@ export default function Page() {
         </div>
       </div>
       <div className="flex rounded-b-md border-t-1 border-secondary-300 p-4 md:justify-end md:px-10 md:py-6">
-        <Button onClick={() => save()} className="w-full md:w-max">
+        <Button
+          loading={isSaving}
+          onClick={() => save()}
+          className="w-full md:w-max"
+        >
           Save
         </Button>
       </div>

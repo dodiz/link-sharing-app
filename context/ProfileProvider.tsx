@@ -39,6 +39,7 @@ export const ProfileContext = createContext({
   image: "",
   setImage: (image: string) => {},
   save: () => {},
+  isSaving: false,
 });
 
 type ProfileProviderProps = PropsWithChildren & {
@@ -55,9 +56,12 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   initialFirstName,
   initialLastName,
 }) => {
-  const { mutate } = api.profile.update.useMutation({
+  const { mutate, isLoading } = api.profile.update.useMutation({
     onSuccess: () => {
       toast.success("Profile updated");
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
   const [firstName, setFirstName] = useState(initialFirstName);
@@ -127,18 +131,6 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
     [userSocials],
   );
 
-  const save = useCallback(() => {
-    mutate({
-      socials: userSocials.map((social) => ({
-        providerId: social.providerId,
-        url: social.url,
-      })),
-      email,
-      firstName,
-      lastName,
-    });
-  }, [firstName, lastName, email, userSocials]);
-
   return (
     <ProfileContext.Provider
       value={{
@@ -157,7 +149,17 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         setLastName,
         image,
         setImage,
-        save,
+        isSaving: isLoading,
+        save: () =>
+          mutate({
+            socials: userSocials.map((social) => ({
+              providerId: social.providerId,
+              url: social.url,
+            })),
+            email,
+            firstName,
+            lastName,
+          }),
       }}
     >
       {children}

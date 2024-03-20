@@ -2,12 +2,13 @@
 
 import { FC, useMemo, useState } from "react";
 import Image from "next/image";
+import { useFormik } from "formik";
+import { z } from "zod";
 import { DragIcon } from "@/assets/DragIcon";
 import { LinkIcon } from "@/assets/LinkIcon";
 import { socials } from "@/data/socials";
 import { useProfile } from "@/hooks/useProfile";
-import { Input } from "@/ui/Input";
-import { Select } from "@/ui/Select";
+import { Select, Input } from "@/ui";
 import { cn } from "@/utils/cn";
 
 type SocialFormProps = {
@@ -16,6 +17,11 @@ type SocialFormProps = {
   initialProviderId?: string;
   label: string;
 };
+
+const validationSchema = z.object({
+  url: z.string().url(),
+});
+
 export const SocialForm: FC<SocialFormProps> = ({
   id,
   label,
@@ -23,10 +29,22 @@ export const SocialForm: FC<SocialFormProps> = ({
   initialProviderId = "",
 }) => {
   const { update, remove, swap, userSocials } = useProfile();
-  const [url, setUrl] = useState(initialUrl);
-  const [providerId, setProviderId] = useState(initialProviderId);
   const [isDragOver, setIsDragOver] = useState(false);
 
+  const formik = useFormik({
+    initialValues: {
+      url: initialUrl,
+      providerId: initialProviderId,
+    },
+    validate: (values) => {
+      const result = validationSchema.safeParse(values);
+      if (result.success) return {};
+      return {
+        url: result.error.errors[0]?.message,
+      };
+    },
+    onSubmit: () => {},
+  });
   /**
    * Options filtered to prevent duplicate socials
    */
@@ -35,7 +53,7 @@ export const SocialForm: FC<SocialFormProps> = ({
       socials
         .filter(
           (social) =>
-            social.providerId === providerId ||
+            social.providerId === formik.values.providerId ||
             !userSocials.find((s) => s.providerId === social.providerId),
         )
         .map((s) => ({
@@ -46,13 +64,13 @@ export const SocialForm: FC<SocialFormProps> = ({
                 width={20}
                 height={20}
                 src={s.iconGrayPath}
-              />{" "}
+              />
               {s.label}
             </div>
           ),
           value: s.providerId,
         })),
-    [userSocials],
+    [userSocials, formik.values.providerId],
   );
 
   return (
@@ -97,11 +115,11 @@ export const SocialForm: FC<SocialFormProps> = ({
       <Select
         label="Platform"
         onChange={(value) => {
-          setProviderId(value);
+          formik.setFieldValue("providerId", value);
           update(id, { providerId: value });
         }}
         options={options}
-        value={providerId}
+        value={formik.values.providerId}
         placeholder={
           <div className="flex items-center gap-3">
             <LinkIcon fill="currentColor" />
@@ -111,11 +129,13 @@ export const SocialForm: FC<SocialFormProps> = ({
       />
       <Input
         label="Link"
-        onChange={({ target }) => setUrl(target.value)}
-        onBlur={() => update(id, { url })}
-        value={url}
-        Icon={LinkIcon}
+        name="url"
+        value={formik.values.url}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        Icon={<LinkIcon />}
         placeholder="e.g. https://www.github.com/johnappleseed"
+        error={formik.touched.url ? formik.errors.url : ""}
       />
     </div>
   );

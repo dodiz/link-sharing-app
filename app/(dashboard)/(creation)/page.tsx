@@ -1,13 +1,17 @@
 "use client";
 
 import { GetStartedImage } from "@/assets/GetStartedImage";
-import { SocialForm } from "@/components/SocialForm";
 import { useProfile } from "@/hooks/useProfile";
-import { Button } from "@/ui/Button";
-import { Typography } from "@/ui/Typography";
+import { Button, Typography } from "@/ui";
+import { SocialForm } from "./SocialForm";
 
 export default function Page() {
-  const { userSocials, add, save } = useProfile();
+  const { userSocials, add, save, isSaving } = useProfile();
+
+  const isValid = userSocials.every(
+    (social) => social.url !== "" && social.providerId !== "",
+  );
+  console.log(userSocials, isValid);
   return (
     <>
       <div className="p-10">
@@ -49,7 +53,12 @@ export default function Page() {
         </div>
       </div>
       <div className="flex rounded-b-md border-t-1 border-secondary-300 p-4 md:justify-end md:px-10 md:py-6">
-        <Button disabled onClick={() => save()} className="w-full md:w-max">
+        <Button
+          loading={isSaving}
+          disabled={!isValid}
+          onClick={() => save()}
+          className="w-full md:w-max"
+        >
           Save
         </Button>
       </div>

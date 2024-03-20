@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 import { socials } from "@/data/socials";
 import { useProfile } from "@/hooks/useProfile";
-import { Typography } from "@/ui/Typography";
+import { Typography } from "@/ui";
 
 export const Preview: FC = () => {
   const { userSocials, swap, firstName, lastName, email, image } = useProfile();
@@ -41,10 +41,10 @@ export const Preview: FC = () => {
             {image ? (
               <img
                 src={image}
-                className="h-24 w-24 rounded-full border-4 border-primary-300 object-cover"
+                className="rounded-full border-4 h-24 w-24 border-primary-300 object-cover"
               />
             ) : (
-              <div className="h-24 w-24 rounded-full bg-secondary-100" />
+              <div className="rounded-full h-24 w-24 bg-secondary-100" />
             )}
             <div className="flex w-full flex-col items-center gap-2">
               {firstName || lastName ? (

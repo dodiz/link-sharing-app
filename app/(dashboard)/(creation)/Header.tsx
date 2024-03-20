@@ -4,9 +4,8 @@ import { LinkIcon } from "@/assets/LinkIcon";
 import { LogoText } from "@/assets/LogoText";
 import { LogoIcon } from "@/assets/LogoIcon";
 import { AccountIcon } from "@/assets/AccountIcon";
-import { Button } from "@/ui/Button";
-import { NavLink } from "@/ui/NavLink";
 import { PreviewIcon } from "@/assets/PreviewIcon";
+import { Button, NavLink } from "@/ui";
 
 export const Header: FC = () => {
   return (

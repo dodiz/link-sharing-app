@@ -1,6 +1,6 @@
 import { LogoText } from "@/assets/LogoText";
 import { LogoIcon } from "@/assets/LogoIcon";
-import { Typography } from "@/ui/Typography";
+import { Typography } from "@/ui";
 import { LoginProviders } from "./LoginProviders";
 
 export default function Page() {

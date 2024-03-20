@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Header } from "@/components/Header";
-import { Preview } from "@/components/Preview";
+import { Preview } from "./Preview";
+import { Header } from "./Header";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

@@ -1,5 +1,5 @@
 import { ComponentProps, FC, ReactNode } from "react";
-import { Typography } from "@/ui/Typography";
+import { Typography } from "@/ui";
 import { cn } from "@/utils/cn";
 
 type InputProps = ComponentProps<"input"> & {

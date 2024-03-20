@@ -4,8 +4,7 @@ import Link from "next/link";
 import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 import { socials } from "@/data/socials";
 import { useProfile } from "@/hooks/useProfile";
-import { Button } from "@/ui/Button";
-import { Typography } from "@/ui/Typography";
+import { Button, Typography } from "@/ui";
 
 export default function Page() {
   const { userSocials, firstName, lastName, email, image } = useProfile();
@@ -17,7 +16,7 @@ export default function Page() {
     .filter((social) => !!social.providerId);
   return (
     <>
-      <div className="md:h-[35rem] md:rounded-b-3xl md:bg-primary-300 md:p-6">
+      <div className="md:rounded-b-3xl md:h-[35rem] md:bg-primary-300 md:p-6">
         <div className="flex items-center justify-between rounded-md bg-secondary-100 px-6 py-4">
           <Button variant="secondary" as={Link} href="/">
             Back to Editor
@@ -30,10 +29,10 @@ export default function Page() {
           {image ? (
             <img
               src={image}
-              className="h-26 w-26 rounded-full border-4 border-primary-300 object-cover"
+              className="rounded-full border-4 h-26 w-26 border-primary-300 object-cover"
             />
           ) : (
-            <div className="h-24 w-24 rounded-full bg-[#EEE]" />
+            <div className="rounded-full h-24 w-24 bg-[#EEE]" />
           )}
           <div className="flex w-full flex-col items-center gap-2">
             {firstName || lastName ? (
