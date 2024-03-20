@@ -1,5 +1,5 @@
-import { cn } from "@/utils/cn";
 import { FC, PropsWithChildren } from "react";
+import { cn } from "@/utils/cn";
 
 type TypographyProps = PropsWithChildren & {
   variant: "heading-m" | "heading-s" | "body-m" | "body-s";
