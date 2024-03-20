@@ -11,13 +11,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       keyframes: {
         "accordion-down": {
@@ -33,6 +26,14 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      spacing: () => ({
+        ...Array.from({ length: 96 }, (_, index) => index * 0.5)
+          .filter((i) => i)
+          .reduce(
+            (acc, i) => ({ ...acc, [i]: `${i / (baseFontSize / 4)}rem` }),
+            {},
+          ),
+      }),
       colors: {
         primary: {
           100: "#EFEBFF",
@@ -49,38 +50,37 @@ const config = {
         },
         error: "#FF3939",
       },
-      screens: {
-        md: "768px",
-        lg: "1024px",
-        xl: "1366px",
-      },
-      fontSize: {
-        xl: "3.2rem",
-        base: "1.6rem",
-        xs: "1.2rem",
-      },
-      spacing: () => ({
-        ...Array.from({ length: 96 }, (_, index) => index * 0.5)
-          .filter((i) => i)
-          .reduce(
-            (acc, i) => ({ ...acc, [i]: `${i / (baseFontSize / 4)}rem` }),
-            {},
-          ),
-      }),
-      borderWidth: {
-        1: ".1rem",
-      },
       borderRadius: {
         sm: "0.8rem",
         md: "1.2rem",
       },
-      boxShadow: {
-        base: "0 0 32px 0 rgba(0, 0, 0, 0.10)",
-        accent: "0 0 32px 0 rgba(99, 60, 255, 0.25)",
+    },
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
       },
     },
+    screens: {
+      md: "768px",
+      lg: "1024px",
+      xl: "1366px",
+    },
+    fontSize: {
+      xl: "3.2rem",
+      base: "1.6rem",
+      xs: "1.2rem",
+    },
+    borderWidth: {
+      1: ".1rem",
+    },
+    boxShadow: {
+      base: "0 0 3.2rem 0 rgba(0, 0, 0, 0.10)",
+      accent: "0 0 3.2rem 0 rgba(99, 60, 255, 0.25)",
+    },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;
 
 export default config;
