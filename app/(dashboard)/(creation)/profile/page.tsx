@@ -2,6 +2,7 @@
 
 import { useProfile } from "@/hooks/useProfile";
 import { Button, Input, Typography } from "@/ui";
+import { env } from "@/env";
 import { FileUpload } from "./FileUpload";
 
 export default function Page() {
@@ -32,14 +33,15 @@ export default function Page() {
           </Typography>
           <div className="flex flex-col gap-8 md:flex-row md:items-center">
             <FileUpload
-              imageUrl={image}
+              initialImage={image}
               onDrop={(file) => {
                 setImage(URL.createObjectURL(file));
               }}
               onRemoveImage={() => setImage("")}
             />
             <Typography variant="body-m" className="flex-1 text-secondary-400">
-              Image must be below 1024x1024px. Use PNG or JPG format.
+              Image must be below {env.NEXT_PUBLIC_AVATAR_SIZE_KB}KB. Use PNG or
+              JPG format.
             </Typography>
           </div>
         </div>

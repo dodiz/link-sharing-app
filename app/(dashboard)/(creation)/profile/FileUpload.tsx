@@ -8,20 +8,17 @@ import { Typography } from "@/ui";
 import { cn } from "@/utils/cn";
 import { env } from "@/env.js";
 
-const MAX_SIZE = 1024 * 1024 * +env.NEXT_PUBLIC_AVATAR_SIZE_KB;
-
+const MAX_SIZE = 1024 * +env.NEXT_PUBLIC_AVATAR_SIZE_KB;
 type FileUploadProps = {
   onDrop: (file: File) => void;
   onRemoveImage: () => void;
-  error?: boolean;
-  imageUrl?: string;
+  initialImage?: string;
   isUploading?: boolean;
 };
 
 export const FileUpload: FC<FileUploadProps> = ({
   onDrop,
-  error,
-  imageUrl,
+  initialImage,
   onRemoveImage,
   isUploading = false,
 }) => {
@@ -34,8 +31,11 @@ export const FileUpload: FC<FileUploadProps> = ({
     onDropRejected: (rejectedFiles) => {
       const rejectedFile = rejectedFiles[0]!;
       rejectedFile.errors.forEach((error) => {
+        console.log(error);
         if (error.code === "file-too-large") {
-          toast.error(`La dimensione massima consentita è di ${MAX_SIZE} KB`);
+          toast.error(
+            `La dimensione massima consentita è di ${env.NEXT_PUBLIC_AVATAR_SIZE_KB} KB`,
+          );
         } else if (error.code === "too-many-files") {
           toast.error("E' possibile caricare un solo file");
         } else {
@@ -44,16 +44,15 @@ export const FileUpload: FC<FileUploadProps> = ({
       });
     },
   });
-
   return (
     <>
-      {!!imageUrl ? (
+      {!!initialImage ? (
         <div
           className="relative h-72 w-72 cursor-pointer rounded-md bg-primary-100"
           onClick={onRemoveImage}
         >
           <img
-            src={imageUrl}
+            src={initialImage}
             alt="preview"
             className="absolute left-0 top-0 h-full w-full rounded-md object-cover"
           />
@@ -71,7 +70,6 @@ export const FileUpload: FC<FileUploadProps> = ({
           {...getRootProps({
             className: cn(
               "cursor-pointer relative h-72 w-72 rounded-md bg-primary-100 flex items-center justify-center flex-col text-center gap-2",
-              error && "styles.error",
             ),
           })}
         >
