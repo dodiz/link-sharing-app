@@ -135,4 +135,4 @@ export const socials: {
     textColor: "#ffffff",
     arrowColor: "#ffffff",
   },
-];
+] as const;

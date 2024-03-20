@@ -11,7 +11,6 @@ export default function Page() {
   const isValid = userSocials.every(
     (social) => social.url !== "" && social.providerId !== "",
   );
-  console.log(userSocials, isValid);
   return (
     <>
       <div className="p-10">
@@ -29,7 +28,6 @@ export default function Page() {
               <SocialForm
                 key={social.providerId}
                 label={`Link #${index + 1}`}
-                id={social.providerId}
                 initialUrl={social.url}
                 initialProviderId={social.providerId}
               />

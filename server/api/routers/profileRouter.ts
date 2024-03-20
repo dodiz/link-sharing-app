@@ -2,6 +2,7 @@ import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "../init";
+import { socials } from "@/data/socials";
 
 export const profileRouter = createTRPCRouter({
   get: protectedProcedure.query(
@@ -31,7 +32,8 @@ export const profileRouter = createTRPCRouter({
         socials: z.array(
           z.object({
             url: z.string().url(),
-            providerId: z.string(),
+            //@ts-ignore
+            providerId: z.enum(socials.map((s) => s.providerId)),
           }),
         ),
       }),
