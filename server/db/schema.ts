@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, json } from "drizzle-orm/pg-core";
 
 export const profile = pgTable("profile", {
   id: serial("id").primaryKey(),
@@ -6,4 +6,5 @@ export const profile = pgTable("profile", {
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   email: varchar("email"),
+  socials: json("socials"),
 });

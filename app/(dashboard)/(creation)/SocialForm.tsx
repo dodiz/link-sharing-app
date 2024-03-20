@@ -12,7 +12,6 @@ import { Select, Input } from "@/ui";
 import { cn } from "@/utils/cn";
 
 type SocialFormProps = {
-  id: string;
   initialUrl?: string;
   initialProviderId?: string;
   label: string;
@@ -23,7 +22,6 @@ const validationSchema = z.object({
 });
 
 export const SocialForm: FC<SocialFormProps> = ({
-  id,
   label,
   initialUrl = "",
   initialProviderId = "",
@@ -82,12 +80,12 @@ export const SocialForm: FC<SocialFormProps> = ({
       )}
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.setData("socialId", id);
+        e.dataTransfer.setData("socialId", formik.values.providerId);
       }}
       onDragOver={(e) => {
         e.preventDefault();
         const socialId = e.dataTransfer.getData("socialId");
-        if (socialId !== id) setIsDragOver(true);
+        if (socialId !== formik.values.providerId) setIsDragOver(true);
       }}
       onDragLeave={(e) => {
         e.preventDefault();
@@ -97,7 +95,7 @@ export const SocialForm: FC<SocialFormProps> = ({
         e.preventDefault();
         setIsDragOver(false);
         const socialId = e.dataTransfer.getData("socialId");
-        swap(socialId, id);
+        swap(socialId, formik.values.providerId);
       }}
     >
       <div className="flex justify-between">
@@ -107,7 +105,7 @@ export const SocialForm: FC<SocialFormProps> = ({
         </div>
         <p
           className="cursor-pointer text-secondary-400 hover:text-error"
-          onClick={() => remove(id)}
+          onClick={() => remove(formik.values.providerId)}
         >
           Remove
         </p>
@@ -116,7 +114,7 @@ export const SocialForm: FC<SocialFormProps> = ({
         label="Platform"
         onChange={(value) => {
           formik.setFieldValue("providerId", value);
-          update(id, { providerId: value });
+          update(formik.values.providerId, { providerId: value });
         }}
         options={options}
         value={formik.values.providerId}
@@ -132,7 +130,10 @@ export const SocialForm: FC<SocialFormProps> = ({
         name="url"
         value={formik.values.url}
         onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
+        onBlur={(e) => {
+          formik.handleBlur(e);
+          update(formik.values.providerId, { url: e.target.value });
+        }}
         Icon={<LinkIcon />}
         placeholder="e.g. https://www.github.com/johnappleseed"
         error={formik.touched.url ? formik.errors.url : ""}

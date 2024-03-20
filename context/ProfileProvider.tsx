@@ -152,10 +152,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         isSaving: isLoading,
         save: () =>
           mutate({
-            socials: userSocials.map((social) => ({
-              providerId: social.providerId,
-              url: social.url,
-            })),
+            socials: userSocials,
             email,
             firstName,
             lastName,

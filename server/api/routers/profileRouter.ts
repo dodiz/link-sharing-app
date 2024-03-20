@@ -15,7 +15,7 @@ export const profileRouter = createTRPCRouter({
       });
       return {
         ...profile,
-        socials: [] as {
+        socials: (profile?.socials ?? []) as {
           url: string;
           providerId: string;
         }[],
@@ -41,7 +41,7 @@ export const profileRouter = createTRPCRouter({
         ctx: {
           session: { user },
         },
-        input: { firstName, lastName, email },
+        input: { firstName, lastName, email, socials },
       }) => {
         const updatedProfile = await db
           .insert(profile)
@@ -50,6 +50,7 @@ export const profileRouter = createTRPCRouter({
             email,
             firstName,
             lastName,
+            socials,
           })
           .onConflictDoUpdate({
             target: profile.user,
@@ -57,6 +58,7 @@ export const profileRouter = createTRPCRouter({
               email,
               firstName,
               lastName,
+              socials,
             },
           });
         return updatedProfile;
