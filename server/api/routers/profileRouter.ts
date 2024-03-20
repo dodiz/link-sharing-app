@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
-import { createTRPCRouter, protectedProcedure } from "../init";
+import { createTRPCRouter, protectedProcedure } from "../core";
 import { socials } from "@/data/socials";
 
 export const profileRouter = createTRPCRouter({
