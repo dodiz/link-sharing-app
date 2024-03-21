@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --toastify-toast-width: auto;
+}
+
 *,
 *::before,
 *::after {
@@ -29,4 +33,23 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #ddd5d5;
   border-radius: 1rem;
+}
+/**
+* Toast
+*/
+.Toastify__toast-container--bottom-center {
+  width: auto;
+}
+.Toastify__toast-theme--dark.Toastify__toast {
+  background: #333333;
+  color: #fafafa;
+  min-height: initial;
+  padding: 1.6rem 2.4rem;
+  border-radius: 1.6rem;
+  font-weight: 600;
+  box-shadow: 0 0 3.2rem 0 rgba(0, 0, 0, 0.1);
+  width: auto;
+}
+.Toastify__close-button {
+  display: none;
 }

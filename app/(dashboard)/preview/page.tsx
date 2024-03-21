@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { LinkIcon } from "@/assets/LinkIcon";
 import { ArrowRightLongIcon } from "@/assets/ArrowRightLongIcon";
 import { socials } from "@/data/socials";
 import { useProfile } from "@/hooks/useProfile";
@@ -14,6 +16,17 @@ export default function Page() {
       ...socials.find((s) => s.providerId === social.providerId)!,
     }))
     .filter((social) => !!social.providerId);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    toast(
+      <div className="flex items-center gap-2">
+        <LinkIcon width={20} height={20} />
+        The link has been copied to your clipboard!
+      </div>,
+    );
+  };
+
   return (
     <>
       <div className="md:rounded-b-3xl md:h-[35rem] md:bg-primary-300 md:p-6">
@@ -21,7 +34,7 @@ export default function Page() {
           <Button variant="secondary" as={Link} href="/">
             Back to Editor
           </Button>
-          <Button>Share Link</Button>
+          <Button onClick={handleCopy}>Share Link</Button>
         </div>
       </div>
       <div className="flex w-full flex-col gap-5 bg-secondary-100 px-14 py-12 md:mx-auto md:w-[35rem] md:-translate-y-1/4 md:rounded-md">
@@ -32,7 +45,7 @@ export default function Page() {
               className="rounded-full border-4 h-26 w-26 border-primary-300 object-cover"
             />
           ) : (
-            <div className="rounded-full h-24 w-24 bg-[#EEE]" />
+            <div className="rounded-full h-24 w-24 bg-secondary-100" />
           )}
           <div className="flex w-full flex-col items-center gap-2">
             {firstName || lastName ? (
@@ -40,7 +53,7 @@ export default function Page() {
                 {firstName} {lastName}
               </Typography>
             ) : (
-              <div className="h-4 w-40 rounded-md bg-[#EEE]" />
+              <div className="h-4 w-40 rounded-md bg-secondary-100" />
             )}
             <Typography variant="body-s" className="text-secondary-400">
               {email}

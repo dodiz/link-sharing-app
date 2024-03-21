@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { toast } from "react-toastify";
+import { SaveIcon } from "@/assets/SaveIcon";
 import { ApiOutputs } from "@/server/api/types";
 import { socials } from "@/data/socials";
 import { api } from "@/utils/api";
@@ -47,6 +48,7 @@ type ProfileProviderProps = PropsWithChildren & {
   initialEmail: string;
   initialFirstName: string;
   initialLastName: string;
+  initialImage: string;
 };
 
 export const ProfileProvider: FC<ProfileProviderProps> = ({
@@ -55,10 +57,16 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   initialEmail,
   initialFirstName,
   initialLastName,
+  initialImage,
 }) => {
   const { mutate, isLoading } = api.profile.update.useMutation({
     onSuccess: () => {
-      toast.success("Profile updated");
+      toast(
+        <div className="flex items-center gap-2">
+          <SaveIcon width={20} height={20} />
+          Your changes have been successfully saved!
+        </div>,
+      );
     },
     onError: (error) => {
       toast.error(error.message);
@@ -67,7 +75,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   const [firstName, setFirstName] = useState(initialFirstName);
   const [lastName, setLastName] = useState(initialLastName);
   const [email, setEmail] = useState(initialEmail);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(initialImage);
 
   const [userSocials, setUserSocials] = useState(initialSocials);
 
