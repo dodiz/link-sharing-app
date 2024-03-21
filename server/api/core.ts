@@ -6,7 +6,9 @@ import { getServerAuthSession } from "@/server/auth";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
   return {
-    //todo: add context db,
+    /**
+     * @todo add context db
+     */
     session: {
       user: session?.user ?? null,
     },

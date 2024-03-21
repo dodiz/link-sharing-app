@@ -11,7 +11,7 @@ import {
 import { cookies } from "next/headers";
 import { observable } from "@trpc/server/observable";
 import superjson from "superjson";
-import { appRouter } from "@/server/api";
+import { appRouter } from "@/server/api/appRouter";
 import { createTRPCContext } from "@/server/api/core";
 
 /**
