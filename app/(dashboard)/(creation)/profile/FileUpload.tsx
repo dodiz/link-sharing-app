@@ -24,20 +24,23 @@ export const FileUpload: FC<FileUploadProps> = ({
 }) => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
-    accept: {},
+    accept: {
+      "image/*": [".jpg", ".jpeg", ".png"],
+    },
     maxFiles: 1,
     maxSize: MAX_SIZE,
     onDropAccepted: (acceptedFiles) => onDrop(acceptedFiles[0]!),
     onDropRejected: (rejectedFiles) => {
       const rejectedFile = rejectedFiles[0]!;
       rejectedFile.errors.forEach((error) => {
-        console.log(error);
         if (error.code === "file-too-large") {
           toast.error(
             `La dimensione massima consentita è di ${env.NEXT_PUBLIC_AVATAR_SIZE_KB} KB`,
           );
         } else if (error.code === "too-many-files") {
           toast.error("E' possibile caricare un solo file");
+        } else if (error.code === "file-invalid-type") {
+          toast.error("Formato file non valido");
         } else {
           toast.error("Errore durante il caricamento del file");
         }
@@ -54,7 +57,7 @@ export const FileUpload: FC<FileUploadProps> = ({
           <img
             src={initialImage}
             alt="preview"
-            className="absolute left-0 top-0 h-full w-full rounded-md object-cover"
+            className="absolute left-0 top-0 h-full w-full rounded-md object-cover brightness-50"
           />
           <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2">
             <UploadImageIcon className="text-secondary-50" />
