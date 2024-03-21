@@ -41,10 +41,10 @@ export const Preview: FC = () => {
             {image ? (
               <img
                 src={image}
-                className="rounded-full border-4 h-24 w-24 border-primary-300 object-cover"
+                className="h-24 w-24 rounded-full border-4 border-primary-300 object-cover"
               />
             ) : (
-              <div className="rounded-full h-24 w-24 bg-secondary-100" />
+              <div className="h-24 w-24 rounded-full bg-secondary-100" />
             )}
             <div className="flex w-full flex-col items-center gap-2">
               {firstName || lastName ? (

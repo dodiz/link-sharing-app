@@ -38,7 +38,7 @@ export const Select: FC<SelectProps> = ({
   return (
     <Root value={value} onValueChange={onChange}>
       <Typography variant="body-s">{label}</Typography>
-      <Trigger className="group flex w-full items-center justify-between rounded-sm border border-slate-200 bg-white px-4 py-3 font-semibold ring-offset-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:border-primary-300 data-[state=open]:shadow-accent [&>span]:line-clamp-1">
+      <Trigger className="border group flex w-full items-center justify-between rounded-sm border-slate-200 bg-white px-4 py-3 font-semibold ring-offset-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:border-primary-300 data-[state=open]:shadow-accent [&>span]:line-clamp-1">
         <Value placeholder={placeholder}>
           {options.find((option) => option.value === value)?.label}
         </Value>
@@ -48,7 +48,7 @@ export const Select: FC<SelectProps> = ({
       </Trigger>
       <Portal>
         <Content
-          className="relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white px-4 text-slate-950 shadow-md data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+          className="border shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border-slate-200 bg-white px-4 text-slate-950 data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1"
           position="popper"
         >
           <ScrollUpButton className="flex cursor-default items-center justify-center py-1">
@@ -59,7 +59,7 @@ export const Select: FC<SelectProps> = ({
               {options.map((option) => (
                 <Item
                   key={option.value}
-                  className="relative flex w-full cursor-pointer select-none items-center gap-3 border-b border-secondary-300 py-3 outline-none last:border-b-0 focus:bg-secondary-50 focus:text-primary-300  data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  className="border-b last:border-b-0 relative flex w-full cursor-pointer select-none items-center gap-3 border-secondary-300 py-3 outline-none focus:bg-secondary-50 focus:text-primary-300  data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   value={option.value}
                 >
                   {option.label}

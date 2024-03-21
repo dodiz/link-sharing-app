@@ -31,8 +31,8 @@ export const Button = <T extends ElementType = "button">({
       className={cn(
         `flex items-center justify-center gap-4 rounded-sm px-7 py-[1.1rem] font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-75 ${
           variant === "primary"
-            ? "bg-primary-300 text-secondary-50 hover:bg-primary-200 hover:shadow-accent"
-            : "border-1  border-primary-300 bg-secondary-50 text-primary-300 hover:bg-primary-100  disabled:bg-secondary-300"
+            ? "bg-primary-300 text-secondary-50 hover:shadow-accent [&:not(:disabled)]:hover:bg-primary-200"
+            : "border-1  border-primary-300 bg-secondary-50 text-primary-300 disabled:bg-secondary-300  [&:not(:disabled)]:hover:bg-primary-100"
         }`,
         className,
       )}

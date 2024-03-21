@@ -1,9 +1,17 @@
 "use client";
 
+import { useFormik } from "formik";
+import { z } from "zod";
 import { useProfile } from "@/hooks/useProfile";
 import { Button, Input, Typography } from "@/ui";
 import { env } from "@/env";
 import { FileUpload } from "./FileUpload";
+
+const validationSchema = z.object({
+  firstName: z.string().min(1, "Required"),
+  lastName: z.string().min(1, "Required"),
+  email: z.string().email().optional(),
+});
 
 export default function Page() {
   const {
@@ -18,6 +26,34 @@ export default function Page() {
     save,
     isSaving,
   } = useProfile();
+
+  const {
+    values,
+    touched,
+    errors,
+    isValid,
+    handleChange,
+    handleBlur,
+    submitForm,
+  } = useFormik({
+    initialValues: {
+      firstName,
+      lastName,
+      email,
+    },
+    validate: (values) => {
+      const validation = validationSchema.safeParse(values);
+      if (!validation.success) {
+        return validation.error.formErrors.fieldErrors;
+      }
+    },
+    onSubmit: (values) => {
+      setFirstName(values.firstName);
+      setLastName(values.lastName);
+      setEmail(values.email);
+    },
+  });
+
   return (
     <>
       <div className="p-10">
@@ -51,8 +87,14 @@ export default function Page() {
               First name*
             </Typography>
             <Input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name="firstName"
+              value={values.firstName}
+              onChange={handleChange}
+              onBlur={(e) => {
+                handleBlur(e);
+                submitForm();
+              }}
+              error={touched.firstName ? errors.firstName : undefined}
               className="flex-1"
             />
           </div>
@@ -61,8 +103,14 @@ export default function Page() {
               Last name*
             </Typography>
             <Input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              name="lastName"
+              value={values.lastName}
+              onChange={handleChange}
+              onBlur={(e) => {
+                handleBlur(e);
+                submitForm();
+              }}
+              error={touched.lastName ? errors.lastName : undefined}
               className="flex-1"
             />
           </div>
@@ -71,8 +119,14 @@ export default function Page() {
               Email
             </Typography>
             <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={(e) => {
+                handleBlur(e);
+                submitForm();
+              }}
+              error={touched.email ? errors.email : undefined}
               className="flex-1"
             />
           </div>
@@ -80,6 +134,7 @@ export default function Page() {
       </div>
       <div className="flex rounded-b-md border-t-1 border-secondary-300 p-4 md:justify-end md:px-10 md:py-6">
         <Button
+          disabled={!isValid}
           loading={isSaving}
           onClick={() => save()}
           className="w-full md:w-max"

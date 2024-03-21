@@ -15,7 +15,10 @@ export const profileRouter = createTRPCRouter({
         where: (profile, { eq }) => eq(profile.user, user.email),
       });
       return {
-        ...profile,
+        firstName: profile?.firstName || user.name,
+        lastName: profile?.lastName || "",
+        email: profile?.email || user.email,
+        image: user.image,
         socials: (profile?.socials ?? []) as {
           url: string;
           providerId: string;
