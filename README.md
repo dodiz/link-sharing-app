@@ -36,9 +36,10 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 - Download [Node.js](https://nodejs.org/en/download/)
 - Download [pnpm](https://pnpm.io/installation)
 - Clone the repo
-- Setup a db on [PlanetScale](https://planetscale.com/) and add the connection string to the .env file
+- Setup a db on [Neon](https://neon.tech/) and add the connection string to the .env file
 - Setup a [Github OAuth app](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) and add the client id and secret to the .env file
-- Check `.env.example` to add the other env variables
+- Setup a [Uploadthing](https://uploadthing.com/) account and add the api key to the .env file
+- Check `.env.example` for var names.
 - Run `pnpm install` to install dependencies
 - Run `pnpm db:push` to push your schema to the database
 - Run `pnpm dev` to start the development server
@@ -55,14 +56,15 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 - [React Query](https://react-query.tanstack.com/) - implemented in tRPC
 - [Formik] (https://formik.org/)
 - [Zod] (https://zod.dev/) - validation library
-- [TRPC] (https://trpc.io/) - For server-client communication
+- [tRPC] (https://trpc.io/) - For server-client communication
 - [Drizzle] (https://orm.drizzle.team/) - DB ORM, postgres
 - [NextAuth] (https://next-auth.js.org/)
 
-#### Deployment
+#### Services
 
-- [Vercel] (https://vercel.com/)
-- [PlanetScale] (https://planetscale.com/)
+- [Vercel] (https://vercel.com/) - deployment
+- [Neon] (https://neon.tech/) - postgres db
+- [Uploadthing] (https://uploadthing.com/) - image upload
 
 ### Author
 
