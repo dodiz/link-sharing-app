@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   createContext,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -11,6 +12,7 @@ import { toast } from "react-toastify";
 import { SaveIcon } from "@/assets/SaveIcon";
 import { ApiOutputs } from "@/server/api/types";
 import { socials } from "@/data/socials";
+import { useUpload } from "@/hooks/useUpload";
 import { api } from "@/utils/api";
 
 type Social = ApiOutputs["profile"]["get"]["socials"][number];
@@ -39,6 +41,7 @@ export const ProfileContext = createContext({
   setLastName: (lastName: string) => {},
   image: "",
   setImage: (image: string) => {},
+  setFileImage: (fileImage: File | null) => {},
   save: () => {},
   isSaving: false,
 });
@@ -59,7 +62,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   initialLastName,
   initialImage,
 }) => {
-  const { mutate, isLoading } = api.profile.update.useMutation({
+  const { mutate: save, isLoading } = api.profile.update.useMutation({
     onSuccess: () => {
       toast(
         <div className="flex items-center gap-2">
@@ -72,10 +75,21 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
       toast.error(error.message);
     },
   });
+  const { startUpload, isUploading } = useUpload("imageUploader", {
+    onUploadError: (error: Error) => toast.error(`ERROR! ${error.message}`),
+  });
+
   const [firstName, setFirstName] = useState(initialFirstName);
   const [lastName, setLastName] = useState(initialLastName);
   const [email, setEmail] = useState(initialEmail);
   const [image, setImage] = useState(initialImage);
+  const [fileImage, setFileImage] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (fileImage) {
+      setImage(URL.createObjectURL(fileImage));
+    }
+  }, [fileImage]);
 
   const [userSocials, setUserSocials] = useState(initialSocials);
 
@@ -139,6 +153,30 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
     [userSocials],
   );
 
+  const handleSave = useCallback(async () => {
+    let userImage = image;
+    if (!!fileImage) {
+      const response = await startUpload([fileImage]);
+      userImage = response?.[0]?.url || image;
+    }
+    save({
+      socials: userSocials,
+      email,
+      firstName,
+      lastName,
+      image: userImage,
+    });
+  }, [
+    image,
+    startUpload,
+    userSocials,
+    email,
+    firstName,
+    lastName,
+    save,
+    fileImage,
+  ]);
+
   return (
     <ProfileContext.Provider
       value={{
@@ -157,14 +195,9 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         setLastName,
         image,
         setImage,
-        isSaving: isLoading,
-        save: () =>
-          mutate({
-            socials: userSocials,
-            email,
-            firstName,
-            lastName,
-          }),
+        setFileImage,
+        isSaving: isLoading || isUploading,
+        save: handleSave,
       }}
     >
       {children}

@@ -4,32 +4,17 @@ import { FC, useState } from "react";
 import { toast } from "react-toastify";
 import { useDropzone } from "react-dropzone";
 import { UploadImageIcon } from "@/assets/UploadImageIcon";
-import { useUpload } from "@/hooks/useUpload";
 import { useProfile } from "@/hooks/useProfile";
 import { Typography } from "@/ui";
 import { cn } from "@/utils/cn";
 import { env } from "@/env.js";
-import { api } from "@/utils/api";
 
 const MAX_SIZE = 1024 * +env.NEXT_PUBLIC_AVATAR_SIZE_KB;
 
 export const UploadZone: FC = () => {
-  const { image, setImage } = useProfile();
-  const [initialImage, setInitialImage] = useState(image);
+  const { image, setFileImage } = useProfile();
 
-  const { mutate } = api.profile.updateImage.useMutation({
-    onSuccess: () => toast("Upload Completed"),
-  });
-
-  const { startUpload, isUploading } = useUpload("imageUploader", {
-    onUploadError: (error: Error) => toast.error(`ERROR! ${error.message}`),
-    onClientUploadComplete: (res) => {
-      const uploadedImage = res![0]!.url;
-      setImage(uploadedImage);
-      setInitialImage(uploadedImage);
-      mutate({ image: uploadedImage });
-    },
-  });
+  const [currentImage, setCurrentImage] = useState<string | null>(image);
 
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
@@ -38,7 +23,10 @@ export const UploadZone: FC = () => {
     },
     maxFiles: 1,
     maxSize: MAX_SIZE,
-    onDropAccepted: (acceptedFiles) => startUpload([acceptedFiles[0]!]),
+    onDropAccepted: (acceptedFiles) => {
+      setFileImage(acceptedFiles[0]!);
+      setCurrentImage(URL.createObjectURL(acceptedFiles[0]!));
+    },
     onDropRejected: (rejectedFiles) => {
       const rejectedFile = rejectedFiles[0]!;
       rejectedFile.errors.forEach((error) => {
@@ -58,13 +46,13 @@ export const UploadZone: FC = () => {
   });
   return (
     <>
-      {!!initialImage ? (
+      {!!currentImage ? (
         <div
           className="relative h-72 w-72 cursor-pointer rounded-md bg-primary-100"
-          onClick={() => setInitialImage("")}
+          onClick={() => setCurrentImage(null)}
         >
           <img
-            src={initialImage}
+            src={currentImage}
             alt="preview"
             className="absolute left-0 top-0 h-full w-full rounded-md object-cover brightness-50"
           />
@@ -75,8 +63,6 @@ export const UploadZone: FC = () => {
             </Typography>
           </div>
         </div>
-      ) : isUploading ? (
-        <>Loading ...</>
       ) : (
         <div
           {...getRootProps({
