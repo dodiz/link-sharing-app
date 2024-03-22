@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
-import { createTRPCRouter, protectedProcedure } from "./core";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "./core";
 import { socials } from "@/data/socials";
 
 export const appRouter = createTRPCRouter({
@@ -73,5 +73,24 @@ export const appRouter = createTRPCRouter({
           return updatedProfile;
         },
       ),
+  }),
+  getDeveloper: publicProcedure.input(z.string()).query(async ({ input }) => {
+    const email = decodeURIComponent(input);
+    const developer = await db.query.profile.findFirst({
+      where: (profile, { eq }) => eq(profile.email, email),
+    });
+    if (!developer) {
+      return null;
+    }
+    return {
+      firstName: developer?.firstName || "",
+      lastName: developer?.lastName || "",
+      email: developer?.email || "",
+      image: developer?.image || "",
+      socials: (developer?.socials ?? []) as {
+        url: string;
+        providerId: string;
+      }[],
+    };
   }),
 });
