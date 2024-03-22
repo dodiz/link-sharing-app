@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { eq } from "drizzle-orm";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "./core";
@@ -16,10 +17,10 @@ export const appRouter = createTRPCRouter({
           where: (profile, { eq }) => eq(profile.user, user.email),
         });
         return {
-          firstName: profile?.firstName || user.name,
+          firstName: profile?.firstName || user.name || "",
           lastName: profile?.lastName || "",
-          email: profile?.email || user.email,
-          image: user.image,
+          email: profile?.email || user.email || "",
+          image: profile?.image || user.image || "",
           socials: (profile?.socials ?? []) as {
             url: string;
             providerId: string;
@@ -67,6 +68,28 @@ export const appRouter = createTRPCRouter({
                 socials,
               },
             });
+          return updatedProfile;
+        },
+      ),
+    updateImage: protectedProcedure
+      .input(
+        z.object({
+          image: z.string().url(),
+        }),
+      )
+      .mutation(
+        async ({
+          ctx: {
+            session: { user },
+          },
+          input: { image },
+        }) => {
+          const updatedProfile = await db
+            .update(profile)
+            .set({
+              image,
+            })
+            .where(eq(profile.user, user.email));
           return updatedProfile;
         },
       ),

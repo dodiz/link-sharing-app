@@ -1,35 +1,44 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { toast } from "react-toastify";
 import { useDropzone } from "react-dropzone";
 import { UploadImageIcon } from "@/assets/UploadImageIcon";
+import { useUpload } from "@/hooks/useUpload";
+import { useProfile } from "@/hooks/useProfile";
 import { Typography } from "@/ui";
 import { cn } from "@/utils/cn";
 import { env } from "@/env.js";
+import { api } from "@/utils/api";
 
 const MAX_SIZE = 1024 * +env.NEXT_PUBLIC_AVATAR_SIZE_KB;
-type FileUploadProps = {
-  onDrop: (file: File) => void;
-  onRemoveImage: () => void;
-  initialImage?: string;
-  isUploading?: boolean;
-};
 
-export const FileUpload: FC<FileUploadProps> = ({
-  onDrop,
-  initialImage,
-  onRemoveImage,
-  isUploading = false,
-}) => {
+export const UploadZone: FC = () => {
+  const { image, setImage } = useProfile();
+  const [initialImage, setInitialImage] = useState(image);
+
+  const { mutate } = api.profile.updateImage.useMutation({
+    onSuccess: () => toast("Upload Completed"),
+  });
+
+  const { startUpload, isUploading } = useUpload("imageUploader", {
+    onUploadError: (error: Error) => toast.error(`ERROR! ${error.message}`),
+    onClientUploadComplete: (res) => {
+      const uploadedImage = res![0]!.url;
+      setImage(uploadedImage);
+      setInitialImage(uploadedImage);
+      mutate({ image: uploadedImage });
+    },
+  });
+
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
-      "image/*": [".jpg", ".jpeg", ".png"],
+      "image/*": [".jpg", ".jpeg"],
     },
     maxFiles: 1,
     maxSize: MAX_SIZE,
-    onDropAccepted: (acceptedFiles) => onDrop(acceptedFiles[0]!),
+    onDropAccepted: (acceptedFiles) => startUpload([acceptedFiles[0]!]),
     onDropRejected: (rejectedFiles) => {
       const rejectedFile = rejectedFiles[0]!;
       rejectedFile.errors.forEach((error) => {
@@ -52,7 +61,7 @@ export const FileUpload: FC<FileUploadProps> = ({
       {!!initialImage ? (
         <div
           className="relative h-72 w-72 cursor-pointer rounded-md bg-primary-100"
-          onClick={onRemoveImage}
+          onClick={() => setInitialImage("")}
         >
           <img
             src={initialImage}

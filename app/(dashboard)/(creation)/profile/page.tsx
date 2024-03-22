@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useProfile } from "@/hooks/useProfile";
 import { Button, Input, Typography } from "@/ui";
 import { env } from "@/env";
-import { FileUpload } from "./FileUpload";
+import { UploadZone } from "./UploadZone";
 
 const validationSchema = z.object({
   firstName: z.string().min(1, "Required"),
@@ -21,8 +21,6 @@ export default function Page() {
     setLastName,
     email,
     setEmail,
-    setImage,
-    image,
     save,
     isSaving,
   } = useProfile();
@@ -53,7 +51,6 @@ export default function Page() {
       setEmail(values.email);
     },
   });
-
   return (
     <>
       <div className="p-10">
@@ -68,16 +65,10 @@ export default function Page() {
             Profile Picture
           </Typography>
           <div className="flex flex-col gap-8 md:flex-row md:items-center">
-            <FileUpload
-              initialImage={image}
-              onDrop={(file) => {
-                setImage(URL.createObjectURL(file));
-              }}
-              onRemoveImage={() => setImage("")}
-            />
+            <UploadZone />
             <Typography variant="body-m" className="flex-1 text-secondary-400">
-              Image must be below {env.NEXT_PUBLIC_AVATAR_SIZE_KB}KB. Use PNG or
-              JPG format.
+              Image must be below {env.NEXT_PUBLIC_AVATAR_SIZE_KB}KB. Use JPG or
+              JPEG format.
             </Typography>
           </div>
         </div>

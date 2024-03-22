@@ -7,4 +7,5 @@ export const profile = pgTable("profile", {
   lastName: varchar("last_name"),
   email: varchar("email"),
   socials: json("socials"),
+  image: varchar("image"),
 });

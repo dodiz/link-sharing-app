@@ -12,10 +12,10 @@ export default async function Layout({ children }: { children: ReactNode }) {
 
   return (
     <ProfileProvider
-      initialEmail={email || ""}
-      initialFirstName={firstName || ""}
-      initialLastName={lastName || ""}
-      initialImage={image || ""}
+      initialEmail={email}
+      initialFirstName={firstName}
+      initialLastName={lastName}
+      initialImage={image}
       initialSocials={socials}
     >
       {children}
