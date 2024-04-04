@@ -1,9 +1,10 @@
+import { eq } from "drizzle-orm";
 import { generate } from "randomstring";
 import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "./core";
 import { socials } from "@/data/socials";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "./core";
 
 export const appRouter = createTRPCRouter({
   profile: createTRPCRouter({
@@ -77,31 +78,17 @@ export const appRouter = createTRPCRouter({
           },
           input: { firstName, lastName, email, socials, image },
         }) => {
-          const randomId = generate({
-            charset: "hex",
-            length: 10,
-          });
           const updatedProfile = await db
-            .insert(profile)
-            .values({
+            .update(profile)
+            .set({
               user: user.email,
               email,
               firstName,
               lastName,
               socials,
-              slug: randomId,
               image,
             })
-            .onConflictDoUpdate({
-              target: profile.user,
-              set: {
-                email,
-                firstName,
-                lastName,
-                socials,
-                image,
-              },
-            })
+            .where(eq(profile.user, user.email))
             .returning();
           return updatedProfile;
         },
