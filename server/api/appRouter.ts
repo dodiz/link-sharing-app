@@ -1,3 +1,4 @@
+import { generate } from "randomstring";
 import { z } from "zod";
 import { db } from "@/server/db";
 import { profile } from "@/server/db/schema";
@@ -12,15 +13,41 @@ export const appRouter = createTRPCRouter({
           session: { user },
         },
       }) => {
-        const profile = await db.query.profile.findFirst({
+        const userProfile = await db.query.profile.findFirst({
           where: (profile, { eq }) => eq(profile.user, user.email),
         });
+        if (userProfile) {
+          return {
+            slug: userProfile.slug!,
+            firstName: userProfile.firstName!,
+            lastName: userProfile.lastName!,
+            email: userProfile.email!,
+            image: userProfile.image!,
+            socials: userProfile.socials as {
+              url: string;
+              providerId: string;
+            }[],
+          };
+        }
+        await db.insert(profile).values({
+          user: user.email,
+          email: user.email,
+          firstName: user.name,
+          lastName: "",
+          socials: [],
+          slug: generate({
+            charset: "hex",
+            length: 10,
+          }),
+          image: user.image,
+        });
         return {
-          firstName: profile?.firstName || user.name || "",
-          lastName: profile?.lastName || "",
-          email: profile?.email || user.email || "",
-          image: profile?.image || user.image || "",
-          socials: (profile?.socials ?? []) as {
+          slug: "",
+          firstName: user.name,
+          lastName: "",
+          email: user.email,
+          image: user.image,
+          socials: [] as {
             url: string;
             providerId: string;
           }[],
@@ -50,6 +77,10 @@ export const appRouter = createTRPCRouter({
           },
           input: { firstName, lastName, email, socials, image },
         }) => {
+          const randomId = generate({
+            charset: "hex",
+            length: 10,
+          });
           const updatedProfile = await db
             .insert(profile)
             .values({
@@ -58,6 +89,7 @@ export const appRouter = createTRPCRouter({
               firstName,
               lastName,
               socials,
+              slug: randomId,
               image,
             })
             .onConflictDoUpdate({
@@ -69,28 +101,30 @@ export const appRouter = createTRPCRouter({
                 socials,
                 image,
               },
-            });
+            })
+            .returning();
           return updatedProfile;
         },
       ),
   }),
-  getDeveloper: publicProcedure.input(z.string()).query(async ({ input }) => {
-    const email = decodeURIComponent(input);
-    const developer = await db.query.profile.findFirst({
-      where: (profile, { eq }) => eq(profile.email, email),
-    });
-    if (!developer) {
-      return null;
-    }
-    return {
-      firstName: developer?.firstName || "",
-      lastName: developer?.lastName || "",
-      email: developer?.email || "",
-      image: developer?.image || "",
-      socials: (developer?.socials ?? []) as {
-        url: string;
-        providerId: string;
-      }[],
-    };
-  }),
+  getDeveloperBySlug: publicProcedure
+    .input(z.string())
+    .query(async ({ input }) => {
+      const developer = await db.query.profile.findFirst({
+        where: (profile, { eq }) => eq(profile.slug, input),
+      });
+      if (!developer) {
+        return null;
+      }
+      return {
+        firstName: developer?.firstName || "",
+        lastName: developer?.lastName || "",
+        email: developer?.email || "",
+        image: developer?.image || "",
+        socials: (developer?.socials ?? []) as {
+          url: string;
+          providerId: string;
+        }[],
+      };
+    }),
 });

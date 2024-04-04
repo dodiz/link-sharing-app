@@ -7,11 +7,12 @@ import { api } from "@/utils/apiServer";
 export default async function Layout({ children }: { children: ReactNode }) {
   const session = await getServerSession();
   if (!session) return redirect("/login");
-  const { socials, email, firstName, lastName, image } =
+  const { socials, email, firstName, lastName, image, slug } =
     await api.profile.get.query();
 
   return (
     <ProfileProvider
+      initialSlug={slug}
       initialEmail={email}
       initialFirstName={firstName}
       initialLastName={lastName}

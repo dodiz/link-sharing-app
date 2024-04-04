@@ -8,4 +8,5 @@ export const profile = pgTable("profile", {
   email: varchar("email"),
   socials: json("socials"),
   image: varchar("image"),
+  slug: varchar("slug"),
 });

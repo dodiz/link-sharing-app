@@ -9,7 +9,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { Button, Typography } from "@/ui";
 
 export default function Page() {
-  const { userSocials, firstName, lastName, email, image } = useProfile();
+  const { userSocials, firstName, lastName, email, image, slug } = useProfile();
   const socialsWithIcons = userSocials
     .map((social) => ({
       ...social,
@@ -20,10 +20,8 @@ export default function Page() {
   const handleCopy = async () => {
     const protocol = window.location.protocol;
     const host = window.location.host;
-    //encode email in url
-    const encodedEmail = encodeURIComponent(email);
     await navigator.clipboard.writeText(
-      `${protocol}//${host}/developer/${encodedEmail}`,
+      `${protocol}//${host}/developer/${slug}`,
     );
     toast(
       <div className="flex items-center gap-2">

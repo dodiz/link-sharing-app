@@ -33,6 +33,7 @@ export const ProfileContext = createContext({
       url?: string;
     },
   ) => {},
+  slug: "",
   email: "",
   setEmail: (email: string) => {},
   firstName: "",
@@ -47,6 +48,7 @@ export const ProfileContext = createContext({
 });
 
 type ProfileProviderProps = PropsWithChildren & {
+  initialSlug: string;
   initialSocials: Social[];
   initialEmail: string;
   initialFirstName: string;
@@ -61,9 +63,12 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   initialFirstName,
   initialLastName,
   initialImage,
+  initialSlug,
 }) => {
+  const [slug, setSlug] = useState(initialSlug);
   const { mutate: save, isLoading } = api.profile.update.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setSlug(data[0]?.slug || initialSlug);
       toast(
         <div className="flex items-center gap-2">
           <SaveIcon width={20} height={20} />
@@ -71,14 +76,11 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
         </div>,
       );
     },
-    onError: (error) => {
-      toast.error(error.message);
-    },
+    onError: (error) => toast.error(error.message),
   });
   const { startUpload, isUploading } = useUpload("imageUploader", {
     onUploadError: (error: Error) => toast.error(`ERROR! ${error.message}`),
   });
-
   const [firstName, setFirstName] = useState(initialFirstName);
   const [lastName, setLastName] = useState(initialLastName);
   const [email, setEmail] = useState(initialEmail);
@@ -180,6 +182,7 @@ export const ProfileProvider: FC<ProfileProviderProps> = ({
   return (
     <ProfileContext.Provider
       value={{
+        slug,
         userSocials,
         add,
         remove: (id: string) =>

@@ -6,8 +6,12 @@ import { socials } from "@/data/socials";
 import { Button, Typography } from "@/ui";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const developer = await api.getDeveloper.query(params.id);
+export default async function Page({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const developer = await api.getDeveloperBySlug.query(slug);
   if (!developer) {
     return notFound();
   }
@@ -21,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="md:h-[35rem] md:rounded-b-3xl md:bg-primary-300 md:p-6">
-        <div className="flex items-center justify-between rounded-md bg-secondary-100 px-6 py-4">
+        <div className="flex rounded-md bg-secondary-100 px-6 py-4">
           <Button variant="secondary" as={Link} href="/">
             Go to app
           </Button>
