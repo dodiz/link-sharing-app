@@ -1,8 +1,8 @@
+import Link from "next/link";
 import { LogoText } from "@/assets/LogoText";
 import { LogoIcon } from "@/assets/LogoIcon";
 import { Typography } from "@/ui";
 import { LoginProviders } from "./LoginProviders";
-import Link from "next/link";
 
 export default function Page() {
   return (
