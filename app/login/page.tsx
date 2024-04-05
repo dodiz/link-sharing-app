@@ -2,6 +2,7 @@ import { LogoText } from "@/assets/LogoText";
 import { LogoIcon } from "@/assets/LogoIcon";
 import { Typography } from "@/ui";
 import { LoginProviders } from "./LoginProviders";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -10,14 +11,36 @@ export default function Page() {
         <LogoIcon />
         <LogoText />
       </div>
-      <div className="flex w-[48rem] flex-col gap-10 rounded-md bg-secondary-50 p-10">
-        <div className="flex flex-col gap-2">
-          <Typography variant="heading-m">Login</Typography>
-          <Typography variant="body-m">
-            Use one of the providers below to login
-          </Typography>
+      <div className="mx-2 rounded-md bg-secondary-50 p-10">
+        <Typography variant="heading-m">Login</Typography>
+        <Typography variant="body-m" className="mt-2">
+          Use one of the providers below to login
+        </Typography>
+        <div className="mt-10">
+          <LoginProviders />
         </div>
-        <LoginProviders />
+        <div className="text-sm mt-10">
+          <div>
+            App made for <b>portfolio purposes</b>. Code available on{" "}
+            <Link
+              className="font-semibold text-primary-300"
+              href="https://github.com/dodiz/link-sharing-app"
+            >
+              Github
+            </Link>
+            .
+          </div>
+          <div>
+            Huge thanks to{" "}
+            <Link
+              className="font-semibold text-primary-300"
+              href="https://www.frontendmentor.io/challenges/linksharing-app-Fbt7yweGsT"
+            >
+              Frontendmentor
+            </Link>{" "}
+            for providing the challenge
+          </div>
+        </div>
       </div>
     </div>
   );
