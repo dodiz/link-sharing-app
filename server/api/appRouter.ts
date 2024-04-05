@@ -104,11 +104,11 @@ export const appRouter = createTRPCRouter({
         return null;
       }
       return {
-        firstName: developer?.firstName || "",
-        lastName: developer?.lastName || "",
-        email: developer?.email || "",
-        image: developer?.image || "",
-        socials: (developer?.socials ?? []) as {
+        firstName: developer.firstName || "",
+        lastName: developer.lastName || "",
+        email: developer.email || "",
+        image: developer.image || "",
+        socials: (developer.socials ?? []) as {
           url: string;
           providerId: string;
         }[],

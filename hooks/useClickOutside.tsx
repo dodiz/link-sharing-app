@@ -32,7 +32,7 @@ export const useClickOutside = (
       document.removeEventListener("click", handleClickOutside);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [callback, handleClickOutside, handleEscape]);
+  }, [handleClickOutside, handleEscape]);
 
   return ref;
 };
