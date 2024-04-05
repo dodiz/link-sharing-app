@@ -55,7 +55,9 @@ export default async function Page({
               style={{
                 backgroundColor: social.bgColor,
                 color: social.textColor,
-                border: social.borderColor && "1px solid " + social.borderColor,
+                border: social.borderColor
+                  ? "1px solid " + social.borderColor
+                  : "none",
               }}
             >
               <Image
