@@ -33,16 +33,15 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 
 ### How to run locally
 
-- Download [Node.js](https://nodejs.org/en/download/)
-- Download [pnpm](https://pnpm.io/installation)
+- Download [Bun](https://bun.sh/)
 - Clone the repo
 - Setup a db on [Neon](https://neon.tech/) and add the connection string to the .env file
 - Setup a [Github OAuth app](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app) and add the client id and secret to the .env file
 - Setup a [Uploadthing](https://uploadthing.com/) account and add the api key to the .env file
 - Check `.env.example` for var names.
-- Run `pnpm install` to install dependencies
-- Run `pnpm db:push` to push your schema to the database
-- Run `pnpm dev` to start the development server
+- Run `bun i` to install dependencies
+- Run `bun db:push` to push your schema to the database
+- Run `bun dev` to start the development server
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Built with
