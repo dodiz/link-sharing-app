@@ -29,7 +29,7 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
 
 ### Links
 
-- Solution URL (TBD): [Link Sharing App](https://vercel.com)
+- Solution URL: [Link Sharing App](https://link-sharing-app-taupe.vercel.app/)
 
 ### How to run locally
 
